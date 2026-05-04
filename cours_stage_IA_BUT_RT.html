@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Stage IA — Cours Complet</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f4f0;
+  --bg2: #eceae3;
+  --bg3: #ffffff;
+  --border: #d8d5cc;
+  --border2: #c4c0b5;
+  --accent: #1a1a2e;
+  --accent2: #16213e;
+  --green: #1a7a4a;
+  --green-bg: #e8f5ee;
+  --orange: #c45a00;
+  --orange-bg: #fff4e6;
+  --red: #b83232;
+  --red-bg: #fdecea;
+  --blue: #1a4fa0;
+  --blue-bg: #e8f0fd;
+  --purple: #5a35b0;
+  --purple-bg: #f0ebfd;
+  --text: #1a1a1a;
+  --text2: #555550;
+  --text3: #888880;
+  --tag-bg: #e2e0d8;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: 270px;
+  min-height: 100vh;
+  background: var(--accent);
+  position: fixed;
+  top: 0; left: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-logo {
+  padding: 28px 22px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-logo h1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+}
+.sidebar-logo p { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+.sidebar-prog {
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.prog-label { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+.prog-bar { height: 3px; background: rgba(255,255,255,0.1); border-radius:3px; }
+.prog-fill { height: 3px; background: #4ade80; border-radius:3px; transition: width .4s; }
+.prog-txt { font-size: 11px; color: #4ade80; margin-top: 4px; font-family: 'Space Mono', monospace; }
+.sidebar-nav { padding: 10px 0 40px; }
+.nav-section {
+  padding: 14px 22px 4px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 22px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all .15s;
+  border-right: 3px solid transparent;
+}
+.nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.04); }
+.nav-item.active { color: #fff; background: rgba(255,255,255,0.08); border-right-color: #4ade80; }
+.nav-item.done { color: rgba(255,255,255,0.7); }
+.nav-num { font-family: 'Space Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.25); min-width: 18px; }
+.nav-item.active .nav-num { color: #4ade80; }
+.nav-check { font-size: 12px; margin-left: auto; opacity: 0; }
+.nav-item.done .nav-check { opacity: 1; color: #4ade80; }
+
+/* ── MAIN ── */
+#main { margin-left: 270px; flex: 1; }
+.chapter { display:none; max-width: 800px; margin: 0 auto; padding: 56px 44px 100px; }
+.chapter.active { display:block; }
+
+/* HEADER */
+.ch-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing:.08em; margin-bottom: 6px; }
+.ch-title { font-size: 34px; font-weight: 700; color: var(--text); margin-bottom: 10px; line-height: 1.1; }
+.ch-subtitle { font-size: 16px; color: var(--text2); max-width: 580px; line-height: 1.7; margin-bottom: 20px; }
+.ch-tags { display:flex; gap:7px; flex-wrap:wrap; padding-bottom: 28px; border-bottom: 1.5px solid var(--border); margin-bottom: 36px; }
+.ctag { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--tag-bg); color: var(--text2); font-family:'Space Mono',monospace; }
+
+/* SECTION TITLES */
+h2 {
+  font-size: 21px; font-weight: 700; color: var(--text);
+  margin: 42px 0 14px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+}
+h3 { font-size: 16px; font-weight: 600; color: var(--text); margin: 24px 0 8px; }
+p { color: var(--text2); margin-bottom: 14px; line-height: 1.8; font-size: 15px; }
+strong { color: var(--text); font-weight: 600; }
+em { color: var(--purple); font-style: normal; font-weight: 500; }
+
+/* CALLOUT */
+.callout {
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 18px 0;
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+}
+.callout-icon { font-size: 18px; flex-shrink:0; line-height:1.5; }
+.callout-body { flex:1; }
+.callout-body p { margin-bottom:0; font-size:14px; }
+.callout-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+.callout.tip { background: var(--green-bg); border: 1px solid #b2dfc3; }
+.callout.tip .callout-title { color: var(--green); }
+.callout.warn { background: var(--orange-bg); border: 1px solid #f5c89a; }
+.callout.warn .callout-title { color: var(--orange); }
+.callout.info { background: var(--blue-bg); border: 1px solid #b2c9f5; }
+.callout.info .callout-title { color: var(--blue); }
+.callout.error { background: var(--red-bg); border: 1px solid #f5b2b2; }
+.callout.error .callout-title { color: var(--red); }
+
+/* CODE */
+.code-block { background: #1a1a2e; border-radius: var(--radius); margin: 18px 0; overflow:hidden; border: 1px solid #2a2a45; }
+.code-hd { display:flex; align-items:center; justify-content:space-between; padding: 9px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.03); }
+.code-lang { font-family:'Space Mono',monospace; font-size: 10px; color: #a89cf7; letter-spacing:.05em; }
+.code-copy { font-size: 11px; color: rgba(255,255,255,0.3); cursor:pointer; padding: 3px 9px; border-radius:4px; border: 1px solid rgba(255,255,255,0.1); background: none; transition: all .15s; font-family: 'Space Grotesk', sans-serif; }
+.code-copy:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+pre { padding: 18px; overflow-x: auto; font-family: 'Space Mono', monospace; font-size: 13px; line-height: 1.7; color: #c8c8e8; }
+.kw { color: #c792ea; }
+.fn { color: #82aaff; }
+.st { color: #c3e88d; }
+.cm { color: #546e7a; font-style: italic; }
+.nm { color: #f78c6c; }
+.dc { color: #89ddff; }
+.bi { color: #ffcb6b; }
+
+/* ANALOGY BOX */
+.analogy {
+  background: var(--purple-bg);
+  border: 1px solid #c5b2f5;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 18px 0;
+}
+.analogy-title { font-size: 12px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing:.06em; margin-bottom: 8px; display:flex; align-items:center; gap:6px; }
+.analogy p { color: #4a3070; margin-bottom:0; font-size:14px; }
+
+/* CONCEPT CARDS */
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
+.card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color .15s;
+}
+.card:hover { border-color: var(--border2); }
+.card-icon { font-size: 22px; margin-bottom: 8px; }
+.card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+.card p { font-size: 13px; color: var(--text2); margin:0; line-height:1.6; }
+
+/* TABLE */
+table { width:100%; border-collapse:collapse; margin:16px 0; font-size:13.5px; background: var(--bg3); border-radius: var(--radius); overflow:hidden; border: 1px solid var(--border); }
+th { text-align:left; padding:11px 14px; background: var(--bg2); color: var(--text); font-weight:700; font-size:12px; letter-spacing:.03em; border-bottom: 1px solid var(--border); }
+td { padding:10px 14px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+td code { background: var(--bg2); padding:2px 7px; border-radius:4px; font-family:'Space Mono',monospace; font-size:12px; color: var(--purple); }
+
+/* INLINE CODE */
+p code, li code { background: var(--bg2); padding: 2px 7px; border-radius:4px; font-family:'Space Mono',monospace; font-size:12px; color: var(--purple); border: 1px solid var(--border); }
+
+/* QCM */
+.qcm {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin: 28px 0;
+}
+.qcm-label { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing:.1em; text-transform:uppercase; margin-bottom: 10px; font-family:'Space Mono',monospace; }
+.qcm-q { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 18px; line-height: 1.5; }
+.qcm-opts { display:flex; flex-direction:column; gap:9px; }
+.qcm-opt {
+  display:flex; align-items:flex-start; gap:11px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  background: var(--bg);
+  font-size: 14px; color: var(--text2);
+  text-align:left;
+  transition: all .12s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.qcm-opt:hover { border-color: var(--border2); background: var(--bg2); color: var(--text); }
+.qcm-opt.correct { border-color: #2a9d5c; background: var(--green-bg); color: var(--green); }
+.qcm-opt.wrong { border-color: #c43a3a; background: var(--red-bg); color: var(--red); }
+.qcm-opt.show-correct { border-color: #2a9d5c; background: #f0faf5; color: #1a6a40; }
+.opt-l {
+  width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--border2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
+  flex-shrink:0; color: var(--text3);
+}
+.qcm-opt.correct .opt-l { border-color: var(--green); color: var(--green); }
+.qcm-opt.wrong .opt-l { border-color: var(--red); color: var(--red); }
+.qcm-fb {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  display:none;
+  line-height: 1.6;
+}
+.qcm-fb.show { display:block; }
+.qcm-fb.ok { background: var(--green-bg); border: 1px solid #b2dfc3; color: var(--green); }
+.qcm-fb.nok { background: var(--red-bg); border: 1px solid #f5b2b2; color: var(--red); }
+
+/* STEPS */
+.steps { margin: 18px 0; }
+.step { display:flex; gap:16px; align-items:flex-start; }
+.step-l { display:flex; flex-direction:column; align-items:center; }
+.step-num { width:34px; height:34px; border-radius:50%; background: var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0; font-family:'Space Mono',monospace; }
+.step-line { width:2px; flex:1; background: var(--border); margin: 6px 0; min-height:20px; }
+.step-body { padding-bottom:24px; flex:1; padding-top:5px; }
+.step-title { font-size:15px; font-weight:700; color: var(--text); margin-bottom:5px; }
+.step-desc { font-size:14px; color: var(--text2); line-height:1.7; }
+
+/* ACCORDION */
+.accordion { margin: 14px 0; }
+.acc-item { border: 1.5px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow:hidden; }
+.acc-head { padding: 13px 18px; background: var(--bg3); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-size: 14px; font-weight: 700; color: var(--text); transition: background .12s; }
+.acc-head:hover { background: var(--bg2); }
+.acc-arrow { transition: transform .2s; color: var(--text3); font-size: 12px; }
+.acc-item.open .acc-arrow { transform: rotate(180deg); }
+.acc-body { display:none; padding: 16px 18px; background: var(--bg); font-size: 14px; color: var(--text2); line-height:1.8; border-top: 1px solid var(--border); }
+.acc-item.open .acc-body { display:block; }
+
+/* SCHEMA */
+.schema { margin: 20px 0; overflow:hidden; border-radius: var(--radius); border: 1px solid var(--border); }
+.schema svg { width:100%; display:block; }
+
+/* NAV BUTTONS */
+.nav-btns { display:flex; justify-content:space-between; align-items:center; margin-top:56px; padding-top:28px; border-top: 1.5px solid var(--border); }
+.nav-btn { display:flex; align-items:center; gap:8px; padding:11px 20px; border-radius: var(--radius); border: 1.5px solid var(--border); background: var(--bg3); color: var(--text2); cursor:pointer; font-size:13px; font-weight:700; transition: all .12s; font-family:'Space Grotesk',sans-serif; }
+.nav-btn:hover { background: var(--bg2); color: var(--text); border-color: var(--border2); }
+.nav-btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+.nav-btn.primary:hover { opacity:.85; }
+.nav-btn:disabled { opacity:0.3; cursor:default; pointer-events:none; }
+
+/* LISTS */
+ul { padding-left: 20px; margin-bottom: 14px; }
+li { color: var(--text2); margin-bottom: 6px; font-size: 14.5px; line-height:1.75; }
+li strong { color: var(--text); }
+
+/* LEVEL BAR */
+.level-bar { display:flex; align-items:center; gap: 10px; margin: 16px 0; }
+.level-label { font-size: 12px; color: var(--text3); min-width: 80px; font-weight:600; }
+.level-dots { display:flex; gap:4px; }
+.dot { width:12px; height:12px; border-radius:50%; background: var(--border2); }
+.dot.filled { background: var(--accent); }
+.dot.filled.green { background: var(--green); }
+.dot.filled.orange { background: var(--orange); }
+
+/* HIGHLIGHT BOX */
+.highlight {
+  background: var(--accent);
+  color: white;
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  margin: 22px 0;
+}
+.highlight h3 { color: #fff; font-size: 15px; margin-bottom: 8px; }
+.highlight p { color: rgba(255,255,255,0.75); margin-bottom:0; font-size:14px; }
+.highlight code { background: rgba(255,255,255,0.15); color: #c3e88d; padding: 2px 7px; border-radius:4px; font-family:'Space Mono',monospace; font-size:12px; }
+
+/* VOCAB */
+.vocab { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin: 16px 0; }
+.vocab-term { font-weight: 700; color: var(--text); font-size: 14px; }
+.vocab-def { color: var(--text2); font-size: 13.5px; line-height: 1.6; }
+
+@media (max-width: 900px) {
+  #sidebar { width: 220px; }
+  #main { margin-left: 220px; }
+  .chapter { padding: 36px 22px 80px; }
+  .cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <h1>Stage IA Agentique<br>Guide Complet</h1>
+    <p>BUT RT 2ème année · Débutant</p>
+  </div>
+  <div class="sidebar-prog">
+    <div class="prog-label">Ta progression</div>
+    <div class="prog-bar"><div class="prog-fill" id="pFill" style="width:9%"></div></div>
+    <div class="prog-txt" id="pTxt">1 / 11 chapitres</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">Avant de commencer</div>
+    <div class="nav-item active" onclick="go(0)" data-i="0"><span class="nav-num">01</span><span>C'est quoi ce stage ?</span><span class="nav-check">✓</span></div>
+    <div class="nav-section">Python — les bases</div>
+    <div class="nav-item" onclick="go(1)" data-i="1"><span class="nav-num">02</span><span>Python pour débutants</span><span class="nav-check">✓</span></div>
+    <div class="nav-item" onclick="go(2)" data-i="2"><span class="nav-num">03</span><span>Classes & Organisation</span><span class="nav-check">✓</span></div>
+    <div class="nav-item" onclick="go(3)" data-i="3"><span class="nav-num">04</span><span>Async & APIs</span><span class="nav-check">✓</span></div>
+    <div class="nav-section">Intelligence Artificielle</div>
+    <div class="nav-item" onclick="go(4)" data-i="4"><span class="nav-num">05</span><span>C'est quoi un LLM ?</span><span class="nav-check">✓</span></div>
+    <div class="nav-item" onclick="go(5)" data-i="5"><span class="nav-num">06</span><span>IA Agentique</span><span class="nav-check">✓</span></div>
+    <div class="nav-item" onclick="go(6)" data-i="6"><span class="nav-num">07</span><span>RAG — Mémoire de l'IA</span><span class="nav-check">✓</span></div>
+    <div class="nav-section">En pratique</div>
+    <div class="nav-item" onclick="go(7)" data-i="7"><span class="nav-num">08</span><span>LangChain</span><span class="nav-check">✓</span></div>
+    <div class="nav-item" onclick="go(8)" data-i="8"><span class="nav-num">09</span><span>Écrire de bons prompts</span><span class="nav-check">✓</span></div>
+    <div class="nav-item" onclick="go(9)" data-i="9"><span class="nav-num">10</span><span>Git & Bonnes pratiques</span><span class="nav-check">✓</span></div>
+    <div class="nav-item" onclick="go(10)" data-i="10"><span class="nav-num">11</span><span>Réussir son stage</span><span class="nav-check">✓</span></div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 1 — C'EST QUOI CE STAGE
+═══════════════════════════════════════════ -->
+<div class="chapter active" id="ch0">
+  <div class="ch-num">CHAPITRE 01</div>
+  <h1 class="ch-title">C'est quoi ce stage ?</h1>
+  <p class="ch-subtitle">Tu vas faire un stage sur l'IA agentique alors que tu viens des réseaux. Pas de panique — voilà exactement ce que ça veut dire, et ce qu'on attend de toi.</p>
+  <div class="ch-tags"><span class="ctag">contexte</span><span class="ctag">objectifs</span><span class="ctag">vocabulaire</span></div>
+
+  <h2>Ce que tu vas faire concrètement</h2>
+  <p>Ta fiche de poste parle d'<strong>IA agentique</strong>. En clair : tu vas aider l'entreprise à créer des petits programmes intelligents qui peuvent prendre des décisions et faire des actions à leur place — comme envoyer des emails automatiquement, lire des documents, chercher des infos sur internet, etc.</p>
+  <p>Tout ça sera <strong>codé en Python</strong>, et tu utiliseras des LLMs (comme ChatGPT, Claude…) comme cerveau central.</p>
+
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <div class="callout-title">Rassure-toi</div>
+      <p>Tu n'as pas besoin d'être un expert en machine learning ou en maths avancées. L'IA agentique c'est <strong>90% du développement Python</strong> qui utilise des APIs. Avec ta formation BUT RT tu as déjà des bases solides en réseau et en programmation — c'est largement suffisant pour commencer.</p>
+    </div>
+  </div>
+
+  <h2>Le vocabulaire clé — ton lexique de survie</h2>
+  <p>Avant tout, voilà les mots que tu vas entendre chaque jour. Pas besoin de les mémoriser maintenant, reviens ici si tu oublies.</p>
+
+  <div class="vocab"><span class="vocab-term">LLM (Large Language Model)</span><br><span class="vocab-def">Un programme d'IA qui comprend et génère du texte. ChatGPT, Claude, Mistral en sont des exemples. Pense à une calculatrice ultra-puissante qui calcule des mots au lieu de chiffres.</span></div>
+  <div class="vocab"><span class="vocab-term">Agent IA</span><br><span class="vocab-def">Un LLM auquel on a donné des outils pour agir (chercher sur le web, lire des fichiers, envoyer des mails…). C'est la différence entre un expert qui donne des conseils et un assistant qui exécute vraiment les tâches.</span></div>
+  <div class="vocab"><span class="vocab-term">API (Application Programming Interface)</span><br><span class="vocab-def">Tu connais déjà ça depuis le BUT RT ! C'est simplement un moyen pour deux programmes de se parler. L'API d'Anthropic te permet d'utiliser Claude dans ton code Python.</span></div>
+  <div class="vocab"><span class="vocab-term">Prompt</span><br><span class="vocab-def">Le texte que tu envoies au LLM. C'est ton "message" au modèle. La qualité de ta réponse dépend beaucoup de la qualité de ton prompt.</span></div>
+  <div class="vocab"><span class="vocab-term">Token</span><br><span class="vocab-def">L'unité de mesure des LLMs. À peu près 4 lettres ou ¾ d'un mot. "Bonjour" = 1 token. Les LLMs coûtent de l'argent par token — important à surveiller !</span></div>
+  <div class="vocab"><span class="vocab-term">RAG (Retrieval-Augmented Generation)</span><br><span class="vocab-def">Technique qui permet à un LLM de chercher dans une base de documents avant de répondre. Sans ça, le LLM ne connaît que ce sur quoi il a été entraîné (pas tes documents d'entreprise).</span></div>
+  <div class="vocab"><span class="vocab-term">Framework</span><br><span class="vocab-def">Une boîte à outils prête à l'emploi. LangChain est un framework IA : au lieu de tout coder de zéro, tu utilises ses outils. Comme utiliser React au lieu de recoder un framework web.</span></div>
+
+  <h2>Ce qu'on attend de toi — niveau par niveau</h2>
+
+  <div class="level-bar">
+    <span class="level-label">Python</span>
+    <div class="level-dots">
+      <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled orange"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <span style="font-size:12px;color:var(--text2)">Niveau intermédiaire suffisant</span>
+  </div>
+  <div class="level-bar">
+    <span class="level-label">IA / LLM</span>
+    <div class="level-dots">
+      <div class="dot filled green"></div><div class="dot filled green"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <span style="font-size:12px;color:var(--text2)">Bases + comprendre les concepts</span>
+  </div>
+  <div class="level-bar">
+    <span class="level-label">Git</span>
+    <div class="level-dots">
+      <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled orange"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <span style="font-size:12px;color:var(--text2)">Commits propres + branches</span>
+  </div>
+  <div class="level-bar">
+    <span class="level-label">Soft skills</span>
+    <div class="level-dots">
+      <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled orange"></div><div class="dot"></div>
+    </div>
+    <span style="font-size:12px;color:var(--text2)">Très important — souvent sous-estimé</span>
+  </div>
+
+  <div class="highlight">
+    <h3>🎯 L'objectif de ce cours</h3>
+    <p>Te donner exactement ce dont tu as besoin pour ton stage, ni plus, ni moins. Chaque concept est expliqué simplement, avec des analogies, puis avec du code réel. Prends le temps de bien comprendre chaque chapitre avant de passer au suivant.</p>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" disabled>← Précédent</button>
+    <button class="nav-btn primary" onclick="go(1)">Python pour débutants →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 2 — PYTHON BASES
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch1">
+  <div class="ch-num">CHAPITRE 02</div>
+  <h1 class="ch-title">Python pour débutants</h1>
+  <p class="ch-subtitle">On repart des bases. Même si tu as déjà vu Python en cours, on va s'assurer que tu maîtrises vraiment les fondamentaux qu'on utilise tous les jours en développement IA.</p>
+  <div class="ch-tags"><span class="ctag">variables</span><span class="ctag">fonctions</span><span class="ctag">listes</span><span class="ctag">dictionnaires</span><span class="ctag">erreurs</span></div>
+
+  <h2>Les types de base</h2>
+  <p>En Python, tout ce que tu manipules a un "type". Les plus importants pour ton stage :</p>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — types_essentiels.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="cm"># Les types que tu vas manipuler tous les jours</span>
+
+<span class="cm"># str (string) — du texte</span>
+mon_prompt = <span class="st">"Résume ce document en 3 points"</span>
+ma_reponse = <span class="st">'Claude a répondu ceci...'</span>  <span class="cm"># guillemets simples ou doubles, idem</span>
+
+<span class="cm"># int / float — des nombres</span>
+max_tokens = <span class="nm">1024</span>        <span class="cm"># entier</span>
+temperature = <span class="nm">0.7</span>       <span class="cm"># décimal</span>
+
+<span class="cm"># bool — vrai ou faux</span>
+verbose = <span class="bi">True</span>
+streaming_actif = <span class="bi">False</span>
+
+<span class="cm"># list — une liste ordonnée de choses</span>
+messages = [
+    <span class="st">"Bonjour, comment tu vas ?"</span>,
+    <span class="st">"Je voudrais savoir..."</span>,
+    <span class="st">"Merci pour ta réponse"</span>
+]
+<span class="bi">print</span>(messages[<span class="nm">0</span>])    <span class="cm"># "Bonjour, comment tu vas ?" — les index commencent à 0 !</span>
+<span class="bi">print</span>(messages[-<span class="nm">1</span>])   <span class="cm"># "Merci pour ta réponse" — -1 = le dernier</span>
+
+<span class="cm"># dict — un dictionnaire clé → valeur (très utilisé pour les APIs)</span>
+message_llm = {
+    <span class="st">"role"</span>: <span class="st">"user"</span>,
+    <span class="st">"content"</span>: <span class="st">"Bonjour, qui es-tu ?"</span>
+}
+<span class="bi">print</span>(message_llm[<span class="st">"role"</span>])     <span class="cm"># "user"</span>
+<span class="bi">print</span>(message_llm[<span class="st">"content"</span>])  <span class="cm"># "Bonjour, qui es-tu ?"</span></pre>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">🔑</span>
+    <div class="callout-body">
+      <div class="callout-title">Pourquoi c'est important pour l'IA</div>
+      <p>Quand tu appelles une API LLM, tu lui envoies un <strong>dictionnaire</strong> (<code>dict</code>) en JSON, et tu reçois un dictionnaire en retour. Maîtriser les dicts et les listes, c'est maîtriser 80% des échanges avec les APIs.</p>
+    </div>
+  </div>
+
+  <h2>Les fonctions — réutiliser son code</h2>
+  <p>Une fonction, c'est un bloc de code qu'on nomme pour pouvoir le réutiliser. Tu vas en écrire des dizaines pendant ton stage.</p>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — fonctions.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="cm"># Définir une fonction avec def</span>
+<span class="kw">def</span> <span class="fn">saluer</span>(prenom: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="st">"""
+    Génère un message de salutation.
+    Le texte entre triple guillemets s'appelle une docstring.
+    C'est la documentation de ta fonction — TOUJOURS mettre ça !
+    """</span>
+    message = <span class="st">f"Bonjour </span><span class="bi">{prenom}</span><span class="st"> !"</span>   <span class="cm"># f-string : variable dans un texte</span>
+    <span class="kw">return</span> message                        <span class="cm"># retourner le résultat</span>
+
+resultat = <span class="fn">saluer</span>(<span class="st">"Lucas"</span>)
+<span class="bi">print</span>(resultat)  <span class="cm"># Bonjour Lucas !</span>
+
+
+<span class="cm"># Fonction plus réaliste : préparer un appel LLM</span>
+<span class="kw">def</span> <span class="fn">preparer_message</span>(texte_user: <span class="bi">str</span>, role: <span class="bi">str</span> = <span class="st">"user"</span>) -> <span class="bi">dict</span>:
+    <span class="st">"""
+    Crée un message formaté pour l'API d'un LLM.
+
+    Args:
+        texte_user: Le texte du message
+        role: "user" ou "assistant" (défaut: "user")
+
+    Returns:
+        Un dict avec les clés "role" et "content"
+    """</span>
+    <span class="kw">return</span> {
+        <span class="st">"role"</span>: role,
+        <span class="st">"content"</span>: texte_user
+    }
+
+msg = <span class="fn">preparer_message</span>(<span class="st">"Explique-moi le RAG"</span>)
+<span class="bi">print</span>(msg)  <span class="cm"># {'role': 'user', 'content': 'Explique-moi le RAG'}</span></pre>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-title">🔌 Analogie réseau</div>
+    <p>Une fonction, c'est comme une fonction de routage : tu lui donnes une adresse IP en entrée (<em>argument</em>), elle retourne la route à prendre (<em>return</em>). Le code à l'intérieur est comme la table de routage — les détails sont cachés, tu te souviens juste de ce que la fonction fait.</p>
+  </div>
+
+  <h2>Les boucles et conditions</h2>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — boucles.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="cm"># Condition if/elif/else</span>
+code_http = <span class="nm">429</span>
+
+<span class="kw">if</span> code_http == <span class="nm">200</span>:
+    <span class="bi">print</span>(<span class="st">"Succès !"</span>)
+<span class="kw">elif</span> code_http == <span class="nm">429</span>:
+    <span class="bi">print</span>(<span class="st">"Trop de requêtes — attendre et réessayer"</span>)
+<span class="kw">elif</span> code_http == <span class="nm">401</span>:
+    <span class="bi">print</span>(<span class="st">"Erreur d'authentification — clé API invalide"</span>)
+<span class="kw">else</span>:
+    <span class="bi">print</span>(<span class="st">f"Erreur inconnue : </span><span class="bi">{code_http}</span><span class="st">"</span>)
+
+
+<span class="cm"># Boucle for — parcourir une liste</span>
+questions = [
+    <span class="st">"Quel temps fait-il ?"</span>,
+    <span class="st">"Qui a inventé Python ?"</span>,
+    <span class="st">"Quelle est la capitale de la France ?"</span>
+]
+
+<span class="kw">for</span> question <span class="kw">in</span> questions:
+    <span class="bi">print</span>(<span class="st">f"Question : </span><span class="bi">{question}</span><span class="st">"</span>)
+    <span class="cm"># ici tu appellerais le LLM pour chaque question</span>
+
+
+<span class="cm"># List comprehension — créer une liste proprement</span>
+<span class="cm"># Au lieu de :</span>
+messages_formates = []
+<span class="kw">for</span> q <span class="kw">in</span> questions:
+    messages_formates.<span class="fn">append</span>({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: q})
+
+<span class="cm"># On peut écrire :</span>
+messages_formates = [{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: q} <span class="kw">for</span> q <span class="kw">in</span> questions]
+<span class="cm"># C'est exactement pareil, juste plus compact — tu vas en voir partout !</span></pre>
+  </div>
+
+  <h2>La gestion d'erreurs — indispensable avec les APIs</h2>
+  <p>Les APIs plantent. Le réseau coupe. Le LLM dépasse sa limite de débit. Tu <strong>dois</strong> gérer ces erreurs dans ton code sinon ton agent va crasher au premier problème.</p>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — gestion_erreurs.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">import</span> <span class="dc">time</span>
+
+<span class="kw">def</span> <span class="fn">appeler_api_avec_retry</span>(prompt: <span class="bi">str</span>, max_tentatives: <span class="bi">int</span> = <span class="nm">3</span>) -> <span class="bi">str</span>:
+    <span class="st">"""Appelle une API et réessaie automatiquement si ça échoue."""</span>
+
+    <span class="kw">for</span> tentative <span class="kw">in</span> <span class="bi">range</span>(max_tentatives):
+        <span class="kw">try</span>:
+            <span class="cm"># Ce qui peut échouer est dans le try</span>
+            reponse = <span class="fn">appeler_llm</span>(prompt)  <span class="cm"># ← peut lever une exception</span>
+            <span class="kw">return</span> reponse  <span class="cm"># si ça marche, on retourne directement</span>
+
+        <span class="kw">except</span> <span class="bi">ConnectionError</span> <span class="kw">as</span> e:
+            <span class="cm"># Erreur de connexion réseau</span>
+            <span class="bi">print</span>(<span class="st">f"❌ Tentative </span><span class="bi">{tentative + 1}</span><span class="st"> échouée : </span><span class="bi">{e}</span><span class="st">"</span>)
+
+            <span class="kw">if</span> tentative < max_tentatives - <span class="nm">1</span>:
+                delai = <span class="nm">2</span> ** tentative  <span class="cm"># 1s, 2s, 4s... (backoff exponentiel)</span>
+                <span class="bi">print</span>(<span class="st">f"⏳ Nouvelle tentative dans </span><span class="bi">{delai}</span><span class="st">s..."</span>)
+                time.<span class="fn">sleep</span>(delai)
+            <span class="kw">else</span>:
+                <span class="bi">print</span>(<span class="st">"❌ Toutes les tentatives ont échoué."</span>)
+                <span class="kw">raise</span>  <span class="cm"># on re-lève l'exception pour alerter l'appelant</span>
+
+        <span class="kw">except</span> <span class="bi">Exception</span> <span class="kw">as</span> e:
+            <span class="cm"># Toute autre erreur inattendue</span>
+            <span class="bi">print</span>(<span class="st">f"🔴 Erreur inattendue : </span><span class="bi">{e}</span><span class="st">"</span>)
+            <span class="kw">raise</span></pre>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <div class="callout-title">Erreur classique de débutant</div>
+      <p>Ne jamais faire <code>except: pass</code> — ça <em>avale</em> l'erreur silencieusement. Tu ne sauras jamais que quelque chose s'est mal passé. Toujours au minimum faire un <code>print</code> ou un <code>raise</code>.</p>
+    </div>
+  </div>
+
+  <div class="qcm" id="q1">
+    <div class="qcm-label">QCM · Chapitre 2</div>
+    <div class="qcm-q">Tu as une liste <code>messages = ["a", "b", "c"]</code>. Que retourne <code>messages[-1]</code> ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q1','Les index négatifs ne sont pas valides en Python — ça lève une erreur.')"><span class="opt-l">A</span>Une erreur IndexError</button>
+      <button class="qcm-opt" onclick="check(this,false,'q1','Non, -1 ne désigne pas le premier élément.')"><span class="opt-l">B</span><code>"a"</code> — le premier élément</button>
+      <button class="qcm-opt" onclick="check(this,true,'q1','✅ Correct ! En Python, -1 désigne toujours le DERNIER élément. -2 serait l\'avant-dernier, etc. Très pratique !')"><span class="opt-l">C</span><code>"c"</code> — le dernier élément</button>
+      <button class="qcm-opt" onclick="check(this,false,'q1','Non, None est une valeur spéciale, pas ce que retourne cet accès.')"><span class="opt-l">D</span><code>None</code></button>
+    </div>
+    <div class="qcm-fb" id="fb-q1"></div>
+  </div>
+
+  <div class="qcm" id="q2">
+    <div class="qcm-label">QCM · Chapitre 2</div>
+    <div class="qcm-q">Dans un bloc <code>try/except</code>, quand est-ce que le code dans <code>except</code> s'exécute ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q2','Non, except s\'exécute uniquement en cas de problème, pas systématiquement.')"><span class="opt-l">A</span>Toujours, après le try</button>
+      <button class="qcm-opt" onclick="check(this,true,'q2','✅ Exact ! Le bloc except ne s\'exécute QUE si une exception (erreur) est levée dans le bloc try. Sinon Python passe directement à la suite.')"><span class="opt-l">B</span>Uniquement si une erreur est levée dans le <code>try</code></button>
+      <button class="qcm-opt" onclick="check(this,false,'q2','Non, except ne dépend pas du return.')"><span class="opt-l">C</span>Uniquement si le <code>try</code> contient un <code>return</code></button>
+      <button class="qcm-opt" onclick="check(this,false,'q2','Non, except s\'exécute au moment de l\'erreur, pas à la fin.')"><span class="opt-l">D</span>À la fin du programme</button>
+    </div>
+    <div class="qcm-fb" id="fb-q2"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(0)">← C'est quoi ce stage ?</button>
+    <button class="nav-btn primary" onclick="go(2)">Classes & Organisation →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 3 — CLASSES
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch2">
+  <div class="ch-num">CHAPITRE 03</div>
+  <h1 class="ch-title">Classes & Organisation du code</h1>
+  <p class="ch-subtitle">Les classes permettent de structurer son code. Dans les projets IA, tout est organisé en classes : agents, outils, configurations. Voici comment ça marche, expliqué simplement.</p>
+  <div class="ch-tags"><span class="ctag">class</span><span class="ctag">objet</span><span class="ctag">héritage</span><span class="ctag">Pydantic</span></div>
+
+  <h2>Qu'est-ce qu'une classe ?</h2>
+
+  <div class="analogy">
+    <div class="analogy-title">🖨️ Analogie — le moule et les objets</div>
+    <p>Imagine une <strong>classe</strong> comme un moule à gâteau. Le moule définit la forme (les attributs et méthodes). Chaque <strong>objet</strong> (ou instance) est un gâteau créé à partir de ce moule — ils ont tous la même structure, mais des données différentes (vanille, chocolat…).</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — classes_intro.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="cm"># Exemple concret : modéliser un "Outil" pour un agent IA</span>
+
+<span class="kw">class</span> <span class="fn">Outil</span>:
+    <span class="cm">"""Représente un outil que peut utiliser un agent IA."""</span>
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="bi">self</span>, nom: <span class="bi">str</span>, description: <span class="bi">str</span>):
+        <span class="cm"># __init__ est appelé automatiquement quand on crée un objet</span>
+        <span class="cm"># "self" représente l'objet lui-même</span>
+        <span class="bi">self</span>.nom = nom
+        <span class="bi">self</span>.description = description
+        <span class="bi">self</span>.nb_utilisations = <span class="nm">0</span>   <span class="cm"># compteur interne</span>
+
+    <span class="kw">def</span> <span class="fn">executer</span>(<span class="bi">self</span>, entree: <span class="bi">str</span>) -> <span class="bi">str</span>:
+        <span class="cm">"""Exécute l'outil sur une entrée."""</span>
+        <span class="bi">self</span>.nb_utilisations += <span class="nm">1</span>
+        <span class="cm"># À surcharger dans les sous-classes</span>
+        <span class="kw">raise</span> <span class="bi">NotImplementedError</span>(<span class="st">"Chaque outil doit implémenter executer()"</span>)
+
+    <span class="kw">def</span> <span class="fn">__str__</span>(<span class="bi">self</span>) -> <span class="bi">str</span>:
+        <span class="cm"># S'affiche quand on fait print(mon_outil)</span>
+        <span class="kw">return</span> <span class="st">f"Outil[</span><span class="bi">{self.nom}</span><span class="st">] — </span><span class="bi">{self.description}</span><span class="st">"</span>
+
+
+<span class="cm"># Une classe enfant qui HÉRITE de Outil</span>
+<span class="kw">class</span> <span class="fn">Calculatrice</span>(<span class="fn">Outil</span>):  <span class="cm"># ← hérite de Outil</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="bi">self</span>):
+        <span class="cm"># super() appelle __init__ du parent (Outil)</span>
+        <span class="bi">super</span>().<span class="fn">__init__</span>(
+            nom=<span class="st">"calculatrice"</span>,
+            description=<span class="st">"Calcule des expressions mathématiques"</span>
+        )
+
+    <span class="kw">def</span> <span class="fn">executer</span>(<span class="bi">self</span>, entree: <span class="bi">str</span>) -> <span class="bi">str</span>:
+        <span class="cm"># On surcharge la méthode du parent</span>
+        <span class="kw">try</span>:
+            resultat = <span class="bi">eval</span>(entree)
+            <span class="kw">return</span> <span class="st">f"Résultat : </span><span class="bi">{resultat}</span><span class="st">"</span>
+        <span class="kw">except</span> <span class="bi">Exception</span>:
+            <span class="kw">return</span> <span class="st">"Erreur dans l'expression"</span>
+
+
+<span class="cm"># Utilisation</span>
+calc = <span class="fn">Calculatrice</span>()          <span class="cm"># créer un objet (instance)</span>
+<span class="bi">print</span>(calc)                      <span class="cm"># Outil[calculatrice] — Calcule des expressions...</span>
+<span class="bi">print</span>(calc.<span class="fn">executer</span>(<span class="st">"2 + 3"</span>))   <span class="cm"># Résultat : 5</span>
+<span class="bi">print</span>(calc.<span class="fn">executer</span>(<span class="st">"10 * 4"</span>))  <span class="cm"># Résultat : 40</span>
+<span class="bi">print</span>(calc.nb_utilisations)     <span class="cm"># 2 (compté automatiquement !)</span></pre>
+  </div>
+
+  <h2>Pydantic — valider ses données automatiquement</h2>
+  <p>Pydantic est une bibliothèque qui permet de créer des classes "intelligentes" qui <em>vérifient automatiquement</em> que les données sont du bon type. C'est quasi-indispensable dans les projets IA car les APIs LLM renvoient des données qu'il faut valider.</p>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — pydantic_intro.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">from</span> <span class="dc">pydantic</span> <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># Classe Pydantic pour structurer la config d'un agent</span>
+<span class="kw">class</span> <span class="fn">ConfigAgent</span>(<span class="fn">BaseModel</span>):
+    <span class="st">"""Configuration d'un agent IA."""</span>
+    modele: <span class="bi">str</span> = <span class="st">"claude-3-5-haiku-20241022"</span>   <span class="cm"># valeur par défaut</span>
+    temperature: <span class="bi">float</span> = <span class="fn">Field</span>(default=<span class="nm">0.7</span>, ge=<span class="nm">0.0</span>, le=<span class="nm">2.0</span>)  <span class="cm"># entre 0 et 2</span>
+    max_tokens: <span class="bi">int</span> = <span class="fn">Field</span>(default=<span class="nm">1024</span>, gt=<span class="nm">0</span>)  <span class="cm"># strictement positif</span>
+    verbose: <span class="bi">bool</span> = <span class="bi">False</span>
+
+<span class="cm"># ✅ Utilisation normale</span>
+config = <span class="fn">ConfigAgent</span>(modele=<span class="st">"claude-3-5-haiku-20241022"</span>, temperature=<span class="nm">0.5</span>)
+<span class="bi">print</span>(config.temperature)   <span class="cm"># 0.5</span>
+
+<span class="cm"># ❌ Pydantic valide et lève une erreur claire</span>
+<span class="kw">try</span>:
+    mauvaise_config = <span class="fn">ConfigAgent</span>(temperature=<span class="nm">5.0</span>)  <span class="cm"># > 2.0 → erreur!</span>
+<span class="kw">except</span> <span class="bi">Exception</span> <span class="kw">as</span> e:
+    <span class="bi">print</span>(e)  <span class="cm"># "temperature: value must be less than or equal to 2.0"</span>
+
+<span class="cm"># Convertir en dict ou JSON facilement</span>
+<span class="bi">print</span>(config.<span class="fn">model_dump</span>())         <span class="cm"># → dict Python</span>
+<span class="bi">print</span>(config.<span class="fn">model_dump_json</span>())    <span class="cm"># → string JSON (pour les APIs)</span></pre>
+  </div>
+
+  <div class="qcm" id="q3">
+    <div class="qcm-label">QCM · Chapitre 3</div>
+    <div class="qcm-q">Dans une classe Python, à quoi sert <code>__init__</code> ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q3','Non, __init__ ne fait pas partie du processus de destruction. C\'est __del__ qui fait ça.')"><span class="opt-l">A</span>À détruire l'objet quand on n'en a plus besoin</button>
+      <button class="qcm-opt" onclick="check(this,true,'q3','✅ Exact ! __init__ est le constructeur : il est appelé automatiquement quand tu crées un objet avec MaClasse(). Il initialise les attributs de l\'objet.')"><span class="opt-l">B</span>À initialiser l'objet — il est appelé automatiquement à la création</button>
+      <button class="qcm-opt" onclick="check(this,false,'q3','Non, __init__ ne retourne rien (None implicitement). C\'est une méthode spéciale de construction.')"><span class="opt-l">C</span>À retourner une valeur depuis la classe</button>
+      <button class="qcm-opt" onclick="check(this,false,'q3','Non, __init__ est une méthode d\'instance, pas de classe.')"><span class="opt-l">D</span>À définir des méthodes statiques accessibles sans créer d'objet</button>
+    </div>
+    <div class="qcm-fb" id="fb-q3"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(1)">← Python Bases</button>
+    <button class="nav-btn primary" onclick="go(3)">Async & APIs →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 4 — ASYNC & APIS
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch3">
+  <div class="ch-num">CHAPITRE 04</div>
+  <h1 class="ch-title">Async & APIs</h1>
+  <p class="ch-subtitle">Les appels LLM peuvent prendre 10 à 30 secondes. Async/await te permet de lancer plusieurs appels en même temps au lieu d'attendre l'un après l'autre. Et les APIs REST, tu en connais déjà le principe depuis le BUT RT !</p>
+  <div class="ch-tags"><span class="ctag">async</span><span class="ctag">await</span><span class="ctag">httpx</span><span class="ctag">API REST</span><span class="ctag">.env</span></div>
+
+  <h2>Appeler une API — la base</h2>
+  <p>Tu connais déjà les APIs depuis tes cours de réseau. En Python, on utilise la bibliothèque <code>httpx</code> (ou <code>requests</code>) pour faire des appels HTTP.</p>
+
+  <div class="analogy">
+    <div class="analogy-title">🌐 Analogie réseau — tu connais déjà ça !</div>
+    <p>Appeler une API LLM c'est exactement comme faire une <strong>requête HTTP POST</strong> que tu as appris en cours. Tu envoies un body JSON, tu reçois un body JSON en retour. Le seul truc nouveau c'est l'authentification par clé API dans les headers.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — premier_appel_llm.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">import</span> <span class="dc">os</span>
+<span class="kw">import</span> <span class="dc">httpx</span>
+<span class="kw">from</span> <span class="dc">dotenv</span> <span class="kw">import</span> load_dotenv  <span class="cm"># pip install python-dotenv</span>
+
+<span class="cm"># ⚠️ JAMAIS écrire la clé directement dans le code !</span>
+<span class="cm"># On la stocke dans un fichier .env</span>
+<span class="fn">load_dotenv</span>()
+MA_CLE_API = os.<span class="fn">getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>)
+
+<span class="kw">def</span> <span class="fn">demander_au_llm</span>(question: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="st">"""Envoie une question à Claude et retourne sa réponse."""</span>
+
+    <span class="cm"># Les headers d'authentification (comme un token Bearer)</span>
+    headers = {
+        <span class="st">"x-api-key"</span>: MA_CLE_API,
+        <span class="st">"anthropic-version"</span>: <span class="st">"2023-06-01"</span>,
+        <span class="st">"content-type"</span>: <span class="st">"application/json"</span>
+    }
+
+    <span class="cm"># Le body JSON de la requête POST</span>
+    body = {
+        <span class="st">"model"</span>: <span class="st">"claude-3-5-haiku-20241022"</span>,
+        <span class="st">"max_tokens"</span>: <span class="nm">512</span>,
+        <span class="st">"messages"</span>: [
+            {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: question}
+        ]
+    }
+
+    <span class="cm"># Envoyer la requête (timeout 60s car les LLMs sont lents)</span>
+    <span class="kw">with</span> httpx.<span class="fn">Client</span>(timeout=<span class="nm">60.0</span>) <span class="kw">as</span> client:
+        response = client.<span class="fn">post</span>(
+            <span class="st">"https://api.anthropic.com/v1/messages"</span>,
+            headers=headers,
+            json=body
+        )
+
+    <span class="cm"># Vérifier que ça a marché (lève une exception si code >= 400)</span>
+    response.<span class="fn">raise_for_status</span>()
+
+    <span class="cm"># Extraire le texte de la réponse JSON</span>
+    data = response.<span class="fn">json</span>()
+    <span class="kw">return</span> data[<span class="st">"content"</span>][<span class="nm">0</span>][<span class="st">"text"</span>]
+
+<span class="cm"># Test</span>
+reponse = <span class="fn">demander_au_llm</span>(<span class="st">"Explique-moi le RAG en 2 phrases"</span>)
+<span class="bi">print</span>(reponse)</pre>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <div class="callout-title">Le fichier .env — super important</div>
+      <p>Crée un fichier <code>.env</code> à la racine de ton projet avec <code>ANTHROPIC_API_KEY=sk-ant-...</code>. Puis ajoute <code>.env</code> dans <code>.gitignore</code>. Si tu commit une clé API par accident, elle est compromise et tu dois en générer une nouvelle immédiatement.</p>
+    </div>
+  </div>
+
+  <h2>Async/Await — pourquoi et comment</h2>
+  <p>Imagine que tu commandes 3 pizzas au téléphone. Sans async, tu appelles le premier, tu ATTENDS qu'il réponde, tu raccroches, tu rappelles le deuxième, tu ATTENDS… Avec async, tu passes les 3 commandes en même temps et tu attends que la dernière soit prête.</p>
+
+  <div class="schema">
+    <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg" style="background:#f0f0ea;">
+      <!-- Synchrone -->
+      <text x="20" y="25" fill="#888" font-family="Space Mono,monospace" font-size="10">SANS async — séquentiel (lent)</text>
+      <rect x="20" y="35" width="120" height="28" rx="5" fill="#fdecea" stroke="#c43a3a" stroke-width="1"/>
+      <text x="80" y="54" fill="#b83232" font-family="Space Mono,monospace" font-size="10" text-anchor="middle">Appel LLM 1</text>
+      <rect x="148" y="35" width="120" height="28" rx="5" fill="#fdecea" stroke="#c43a3a" stroke-width="1"/>
+      <text x="208" y="54" fill="#b83232" font-family="Space Mono,monospace" font-size="10" text-anchor="middle">Appel LLM 2</text>
+      <rect x="276" y="35" width="120" height="28" rx="5" fill="#fdecea" stroke="#c43a3a" stroke-width="1"/>
+      <text x="336" y="54" fill="#b83232" font-family="Space Mono,monospace" font-size="10" text-anchor="middle">Appel LLM 3</text>
+      <text x="416" y="54" fill="#888" font-family="Space Mono,monospace" font-size="11">→ ~30 secondes</text>
+
+      <!-- Asynchrone -->
+      <text x="20" y="100" fill="#888" font-family="Space Mono,monospace" font-size="10">AVEC async — parallèle (rapide)</text>
+      <rect x="20" y="112" width="120" height="28" rx="5" fill="#e8f5ee" stroke="#1a7a4a" stroke-width="1"/>
+      <text x="80" y="131" fill="#1a7a4a" font-family="Space Mono,monospace" font-size="10" text-anchor="middle">Appel LLM 1</text>
+      <rect x="20" y="146" width="120" height="28" rx="5" fill="#e8f5ee" stroke="#1a7a4a" stroke-width="1"/>
+      <text x="80" y="165" fill="#1a7a4a" font-family="Space Mono,monospace" font-size="10" text-anchor="middle">Appel LLM 2</text>
+      <rect x="20" y="180" width="120" height="28" rx="5" fill="#e8f5ee" stroke="#1a7a4a" stroke-width="1"/>
+      <text x="80" y="199" fill="#1a7a4a" font-family="Space Mono,monospace" font-size="10" text-anchor="middle">Appel LLM 3</text>
+      <text x="160" y="162" fill="#1a7a4a" font-family="Space Mono,monospace" font-size="11">→ ~10 secondes ✓</text>
+      <text x="160" y="177" fill="#888" font-family="Space Mono,monospace" font-size="9">Les 3 tournent en même temps</text>
+    </svg>
+  </div>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — async_exemple.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">import</span> <span class="dc">asyncio</span>
+<span class="kw">import</span> <span class="dc">anthropic</span>
+
+client = anthropic.<span class="fn">AsyncAnthropic</span>()  <span class="cm"># version async du client</span>
+
+<span class="cm"># Une fonction async se déclare avec "async def"</span>
+<span class="kw">async def</span> <span class="fn">poser_question</span>(question: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="st">"""Version async : n'est pas bloquante pendant l'attente."""</span>
+    <span class="cm"># await signifie "attends ce résultat sans bloquer les autres"</span>
+    reponse = <span class="kw">await</span> client.messages.<span class="fn">create</span>(
+        model=<span class="st">"claude-3-5-haiku-20241022"</span>,
+        max_tokens=<span class="nm">256</span>,
+        messages=[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: question}]
+    )
+    <span class="kw">return</span> reponse.content[<span class="nm">0</span>].text
+
+<span class="cm"># Lancer 3 questions EN MÊME TEMPS</span>
+<span class="kw">async def</span> <span class="fn">analyser_plusieurs_textes</span>():
+    questions = [
+        <span class="st">"Résume : 'Le RAG est une technique IA qui...'"</span>,
+        <span class="st">"Traduis en anglais : 'Bonjour le monde'"</span>,
+        <span class="st">"Donne 3 synonymes de 'rapide'"</span>
+    ]
+
+    <span class="cm"># gather() lance tout en parallèle et attend que tout soit fini</span>
+    resultats = <span class="kw">await</span> asyncio.<span class="fn">gather</span>(
+        *[<span class="fn">poser_question</span>(q) <span class="kw">for</span> q <span class="kw">in</span> questions]
+    )
+
+    <span class="kw">for</span> i, resultat <span class="kw">in</span> <span class="bi">enumerate</span>(resultats):
+        <span class="bi">print</span>(<span class="st">f"Q{i+1}: </span><span class="bi">{resultat}</span><span class="st">"</span>)
+
+<span class="cm"># Lancer la fonction async depuis un contexte normal</span>
+asyncio.<span class="fn">run</span>(<span class="fn">analyser_plusieurs_textes</span>())</pre>
+  </div>
+
+  <div class="qcm" id="q4">
+    <div class="qcm-label">QCM · Chapitre 4</div>
+    <div class="qcm-q">Tu veux que 5 appels LLM se fassent en parallèle. Quelle fonction utilises-tu ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q4','asyncio.run() sert à lancer UNE SEULE coroutine depuis un contexte synchrone. Pas pour lancer plusieurs en parallèle.')"><span class="opt-l">A</span><code>asyncio.run()</code></button>
+      <button class="qcm-opt" onclick="check(this,true,'q4','✅ Parfait ! asyncio.gather() prend plusieurs coroutines, les lance toutes en même temps, et retourne une liste de résultats dans le même ordre.')"><span class="opt-l">B</span><code>asyncio.gather()</code></button>
+      <button class="qcm-opt" onclick="check(this,false,'q4','Non, c\'est une syntaxe pour boucler sur un itérable asynchrone, pas pour le parallélisme.')"><span class="opt-l">C</span><code>async for</code></button>
+      <button class="qcm-opt" onclick="check(this,false,'q4','Il n\'existe pas de fonction async.parallel() dans la bibliothèque standard Python.')"><span class="opt-l">D</span><code>async.parallel()</code></button>
+    </div>
+    <div class="qcm-fb" id="fb-q4"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(2)">← Classes</button>
+    <button class="nav-btn primary" onclick="go(4)">C'est quoi un LLM ? →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 5 — LLM
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch4">
+  <div class="ch-num">CHAPITRE 05</div>
+  <h1 class="ch-title">C'est quoi un LLM ?</h1>
+  <p class="ch-subtitle">Comprendre comment fonctionnent ChatGPT, Claude et compagnie — sans les maths. On s'intéresse à ce qui compte pour ton stage : comment les utiliser efficacement.</p>
+  <div class="ch-tags"><span class="ctag">tokens</span><span class="ctag">contexte</span><span class="ctag">température</span><span class="ctag">historique</span><span class="ctag">streaming</span></div>
+
+  <h2>Comment ça marche, simplement</h2>
+  <p>Un LLM (Large Language Model) est entraîné sur des milliards de textes. Son seul "talent" : <strong>prédire le mot suivant</strong> le plus probable. Mais à très grande échelle, cette capacité donne l'impression de comprendre et raisonner.</p>
+
+  <div class="analogy">
+    <div class="analogy-title">📶 Analogie réseau — autocomplete géant</div>
+    <p>Tu connais l'autocomplete de ton téléphone ? Il prédit le mot suivant. Un LLM fait la même chose, mais avec 200 milliards de paramètres au lieu de quelques millions, entraîné sur quasiment tout l'internet. Le résultat ressemble à de la "compréhension" mais c'est fondamentalement de la prédiction statistique très sophistiquée.</p>
+  </div>
+
+  <h2>Les concepts clés à maîtriser</h2>
+
+  <div class="accordion">
+    <div class="acc-item open">
+      <div class="acc-head" onclick="acc(this)">🪙 Les tokens — l'unité de base <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Un <strong>token</strong> ≈ 4 caractères, soit environ ¾ d'un mot. "Bonjour" = 1 token. "développement" = 2-3 tokens. Les espaces et ponctuations comptent aussi.</p>
+        <p><strong>Pourquoi c'est important ?</strong> Les LLMs ont un <strong>coût par token</strong>. Claude Haiku coûte ~$0.001 pour 1000 tokens d'entrée. Un document de 10 pages ≈ 3000 tokens ≈ $0.003. Surveille toujours la consommation en développement !</p>
+        <p>Utilise <strong>platform.openai.com/tokenizer</strong> pour voir comment ton texte est découpé en tokens.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">📦 La fenêtre de contexte — la "mémoire" <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Le LLM ne peut "voir" qu'un certain nombre de tokens à la fois — c'est la <strong>fenêtre de contexte</strong>. Claude 3.5 peut voir jusqu'à 200 000 tokens (~150 000 mots). GPT-4 : 128 000 tokens.</p>
+        <p><strong>Très important :</strong> le LLM n'a <strong>aucune mémoire entre deux appels</strong>. Si tu envoies "Bonjour" puis dans un autre appel "Comment tu vas ?", il ne sait pas qu'il y a eu un premier message. C'est pour ça que dans les chatbots, on renvoie tout l'historique à chaque appel.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">🌡️ La température — créativité vs précision <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>La <strong>température</strong> (entre 0 et 2) contrôle à quel point le modèle prend des risques dans ses prédictions :</p>
+        <ul>
+          <li><strong>temperature = 0</strong> : toujours la réponse la plus probable. Parfait pour extraire des données, classifier, analyser.</li>
+          <li><strong>temperature = 0.7</strong> : équilibre. Bon pour les conversations, explications.</li>
+          <li><strong>temperature = 1.5+</strong> : très créatif mais parfois incohérent. Pour la génération créative uniquement.</li>
+        </ul>
+        <p>Pour les <strong>agents IA</strong>, utilise <code>temperature=0</code> ou <code>0.2</code> — on veut des comportements reproductibles, pas surprenants.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">📜 Le system prompt — les instructions permanentes <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Le <strong>system prompt</strong> est un message spécial envoyé avant la conversation, qui définit le comportement du modèle. C'est là que tu lui dis qui il est, comment répondre, dans quel format, etc.</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-hd"><span class="code-lang">exemple de system prompt</span></div>
+          <pre>system = <span class="st">"""Tu es un assistant expert en cybersécurité réseau.
+Tu travailles pour une équipe de BUT RT.
+
+RÈGLES :
+- Réponds toujours en français
+- Utilise des termes techniques précis
+- Si tu ne sais pas, dis-le clairement
+- Maximum 3 paragraphes par réponse"""</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>L'historique de conversation — crucial !</h2>
+  <p>Comme le LLM ne se souvient de rien entre deux appels, <strong>c'est ton code qui doit maintenir l'historique</strong> et le renvoyer à chaque fois. Voici comment ça marche :</p>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — historique_conversation.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">import</span> <span class="dc">anthropic</span>
+
+client = anthropic.<span class="fn">Anthropic</span>()
+
+<span class="cm"># L'historique est une liste de messages qu'on ACCUMULE</span>
+historique = []
+
+<span class="kw">def</span> <span class="fn">chat</span>(message_user: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="st">"""Envoie un message et garde l'historique."""</span>
+
+    <span class="cm"># 1. Ajouter le message de l'utilisateur à l'historique</span>
+    historique.<span class="fn">append</span>({
+        <span class="st">"role"</span>: <span class="st">"user"</span>,
+        <span class="st">"content"</span>: message_user
+    })
+
+    <span class="cm"># 2. Envoyer TOUT l'historique au LLM</span>
+    reponse = client.messages.<span class="fn">create</span>(
+        model=<span class="st">"claude-3-5-haiku-20241022"</span>,
+        max_tokens=<span class="nm">512</span>,
+        system=<span class="st">"Tu es un assistant pour stagiaires en BUT RT."</span>,
+        messages=historique  <span class="cm"># ← on envoie tout, pas juste le dernier message</span>
+    )
+
+    texte_reponse = reponse.content[<span class="nm">0</span>].text
+
+    <span class="cm"># 3. Ajouter la réponse du modèle à l'historique</span>
+    historique.<span class="fn">append</span>({
+        <span class="st">"role"</span>: <span class="st">"assistant"</span>,
+        <span class="st">"content"</span>: texte_reponse
+    })
+
+    <span class="kw">return</span> texte_reponse
+
+
+<span class="cm"># Test — le LLM "se souvient" grâce à l'historique</span>
+<span class="bi">print</span>(<span class="fn">chat</span>(<span class="st">"Je m'appelle Lucas et je fais un stage en IA"</span>))
+<span class="bi">print</span>(<span class="fn">chat</span>(<span class="st">"Quel est mon prénom ?"</span>))
+<span class="cm"># → "Ton prénom est Lucas." (grâce à l'historique !)</span></pre>
+  </div>
+
+  <div class="qcm" id="q5">
+    <div class="qcm-label">QCM · Chapitre 5</div>
+    <div class="qcm-q">Tu veux classer automatiquement des tickets support en 3 catégories (Bug, Question, Demande). Quelle température choisis-tu ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q5','1.5 donnerait des réponses très créatives et imprévisibles — exactement l\'inverse de ce qu\'on veut pour une classification fiable.')"><span class="opt-l">A</span>temperature = 1.5 pour que le modèle soit plus créatif dans sa classification</button>
+      <button class="qcm-opt" onclick="check(this,false,'q5','Pas vraiment optimale. Pour de la classification, on veut encore moins de variabilité.')"><span class="opt-l">B</span>temperature = 0.7 pour un bon équilibre</button>
+      <button class="qcm-opt" onclick="check(this,true,'q5','✅ Parfait ! Pour une tâche de classification, temperature=0 garantit des réponses reproductibles et cohérentes. Le même ticket donnera toujours la même catégorie.')"><span class="opt-l">C</span>temperature = 0 pour des résultats déterministes et reproductibles</button>
+      <button class="qcm-opt" onclick="check(this,false,'q5','La température ne peut pas être négative en pratique pour les LLMs.')"><span class="opt-l">D</span>temperature = -1 pour forcer la précision maximale</button>
+    </div>
+    <div class="qcm-fb" id="fb-q5"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(3)">← Async & APIs</button>
+    <button class="nav-btn primary" onclick="go(5)">IA Agentique →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 6 — IA AGENTIQUE
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch5">
+  <div class="ch-num">CHAPITRE 06</div>
+  <h1 class="ch-title">L'IA Agentique</h1>
+  <p class="ch-subtitle">C'est le cœur de ton stage. Un agent IA peut prendre des décisions et exécuter des actions. Voici comment ça marche de A à Z, avec un exemple complet codé en Python.</p>
+  <div class="ch-tags"><span class="ctag">agent</span><span class="ctag">tools</span><span class="ctag">tool calling</span><span class="ctag">boucle agentique</span></div>
+
+  <h2>LLM classique vs Agent IA</h2>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <h4>LLM classique</h4>
+      <p>Tu poses une question → il répond avec du texte. C'est tout. Il ne peut pas faire d'actions réelles dans le monde.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h4>Agent IA</h4>
+      <p>Tu poses une question → il décide quels outils appeler → ton code exécute les outils → il formule une réponse avec les vrais résultats.</p>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-title">🔧 Analogie concrète</div>
+    <p>Imagine un <strong>expert réseau très calé</strong> mais enfermé dans une pièce sans téléphone ni internet. Il peut te conseiller mais pas agir. C'est un LLM classique.<br><br>Maintenant donne-lui des outils : un terminal SSH, un accès au monitoring réseau, la liste des équipements. Il peut maintenant <strong>agir</strong> pour résoudre des problèmes. C'est un agent IA.</p>
+  </div>
+
+  <h2>Le tool calling — le mécanisme central</h2>
+  <p>C'est le concept le plus important à comprendre. Le LLM ne peut pas vraiment "exécuter" du code — il génère du texte qui <em>décrit</em> quel outil appeler. Ton code Python intercepte ça, fait vraiment l'appel, et renvoie le résultat.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-l"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Tu définis les outils disponibles</div>
+        <div class="step-desc">Tu envoies au LLM une liste d'outils avec leur nom, description et paramètres. Exemple : <em>"get_weather(city: str)"</em> ou <em>"search_web(query: str)"</em>. Le LLM sait maintenant qu'il peut les "utiliser".</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Le LLM décide d'appeler un outil</div>
+        <div class="step-desc">Au lieu de répondre directement en texte, le modèle retourne un bloc spécial <code>tool_use</code> : <em>"J'appelle get_weather avec l'argument city='Paris'"</em>. Il a décidé lui-même qu'il avait besoin de cette information.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Ton code Python exécute vraiment l'outil</div>
+        <div class="step-desc">Tu interceptes la demande du LLM, tu appelles ta vraie fonction Python <code>get_weather("Paris")</code>, et tu obtiens le résultat : <em>"22°C, ensoleillé"</em>.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">4</div></div>
+      <div class="step-body">
+        <div class="step-title">Tu renvoies le résultat au LLM qui répond</div>
+        <div class="step-desc">Tu ajoutes le résultat dans l'historique. Le LLM peut maintenant formuler sa réponse finale : <em>"Il fait 22°C à Paris aujourd'hui !"</em>. Ou il peut demander un autre outil si nécessaire.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — mon_premier_agent.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">import</span> <span class="dc">anthropic</span>
+<span class="kw">import</span> <span class="dc">json</span>
+
+client = anthropic.<span class="fn">Anthropic</span>()
+
+<span class="cm"># ── ÉTAPE 1 : Décrire les outils au LLM ──</span>
+OUTILS = [
+    {
+        <span class="st">"name"</span>: <span class="st">"get_weather"</span>,
+        <span class="st">"description"</span>: <span class="st">"Donne la météo actuelle pour une ville"</span>,
+        <span class="st">"input_schema"</span>: {
+            <span class="st">"type"</span>: <span class="st">"object"</span>,
+            <span class="st">"properties"</span>: {
+                <span class="st">"ville"</span>: {
+                    <span class="st">"type"</span>: <span class="st">"string"</span>,
+                    <span class="st">"description"</span>: <span class="st">"Le nom de la ville"</span>
+                }
+            },
+            <span class="st">"required"</span>: [<span class="st">"ville"</span>]
+        }
+    },
+    {
+        <span class="st">"name"</span>: <span class="st">"calculer"</span>,
+        <span class="st">"description"</span>: <span class="st">"Calcule une expression mathématique"</span>,
+        <span class="st">"input_schema"</span>: {
+            <span class="st">"type"</span>: <span class="st">"object"</span>,
+            <span class="st">"properties"</span>: {
+                <span class="st">"expression"</span>: {
+                    <span class="st">"type"</span>: <span class="st">"string"</span>,
+                    <span class="st">"description"</span>: <span class="st">"L'expression à calculer, ex: '2 + 2'"</span>
+                }
+            },
+            <span class="st">"required"</span>: [<span class="st">"expression"</span>]
+        }
+    }
+]
+
+<span class="cm"># ── ÉTAPE 2 : Implémenter les vraies fonctions Python ──</span>
+<span class="kw">def</span> <span class="fn">get_weather</span>(ville: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="cm"># En vrai, tu appellerais une API météo ici</span>
+    meteos = {
+        <span class="st">"Paris"</span>: <span class="st">"22°C, ensoleillé"</span>,
+        <span class="st">"Lyon"</span>: <span class="st">"18°C, nuageux"</span>,
+        <span class="st">"Marseille"</span>: <span class="st">"28°C, très ensoleillé"</span>
+    }
+    <span class="kw">return</span> meteos.<span class="fn">get</span>(ville, <span class="st">f"Météo de {ville} indisponible"</span>)
+
+<span class="kw">def</span> <span class="fn">calculer</span>(expression: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="kw">try</span>:
+        resultat = <span class="bi">eval</span>(expression, {<span class="st">"__builtins__"</span>: {}})
+        <span class="kw">return</span> <span class="bi">str</span>(resultat)
+    <span class="kw">except Exception</span> <span class="kw">as</span> e:
+        <span class="kw">return</span> <span class="st">f"Erreur : {e}"</span>
+
+<span class="cm"># Associer le nom de l'outil à la fonction Python</span>
+MES_OUTILS = {
+    <span class="st">"get_weather"</span>: get_weather,
+    <span class="st">"calculer"</span>: calculer
+}
+
+<span class="cm"># ── ÉTAPE 3 : La boucle agentique ──</span>
+<span class="kw">def</span> <span class="fn">lancer_agent</span>(question: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="st">"""Lance l'agent sur une question et retourne la réponse finale."""</span>
+
+    messages = [{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: question}]
+    <span class="bi">print</span>(<span class="st">f"\n👤 Question : {question}"</span>)
+
+    <span class="kw">while True</span>:  <span class="cm"># on boucle jusqu'à avoir une réponse finale</span>
+
+        reponse = client.messages.<span class="fn">create</span>(
+            model=<span class="st">"claude-3-5-haiku-20241022"</span>,
+            max_tokens=<span class="nm">1024</span>,
+            tools=OUTILS,
+            messages=messages
+        )
+
+        <span class="cm"># Cas 1 : réponse textuelle finale → on a terminé</span>
+        <span class="kw">if</span> reponse.stop_reason == <span class="st">"end_turn"</span>:
+            <span class="bi">print</span>(<span class="st">f"✅ Réponse finale : {reponse.content[0].text}"</span>)
+            <span class="kw">return</span> reponse.content[<span class="nm">0</span>].text
+
+        <span class="cm"># Cas 2 : le LLM veut utiliser un outil</span>
+        <span class="kw">if</span> reponse.stop_reason == <span class="st">"tool_use"</span>:
+
+            <span class="cm"># Ajouter la décision du LLM à l'historique</span>
+            messages.<span class="fn">append</span>({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"content"</span>: reponse.content})
+
+            resultats_outils = []
+
+            <span class="kw">for</span> bloc <span class="kw">in</span> reponse.content:
+                <span class="kw">if</span> bloc.type == <span class="st">"tool_use"</span>:
+                    <span class="bi">print</span>(<span class="st">f"🔧 Outil appelé : {bloc.name}({bloc.input})"</span>)
+
+                    <span class="cm"># Exécuter la vraie fonction Python</span>
+                    fonction = MES_OUTILS[bloc.name]
+                    resultat = <span class="fn">fonction</span>(**bloc.input)
+
+                    <span class="bi">print</span>(<span class="st">f"   → Résultat : {resultat}"</span>)
+
+                    resultats_outils.<span class="fn">append</span>({
+                        <span class="st">"type"</span>: <span class="st">"tool_result"</span>,
+                        <span class="st">"tool_use_id"</span>: bloc.id,
+                        <span class="st">"content"</span>: resultat
+                    })
+
+            <span class="cm"># Renvoyer les résultats au LLM</span>
+            messages.<span class="fn">append</span>({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: resultats_outils})
+
+<span class="cm"># ── Test ──</span>
+<span class="fn">lancer_agent</span>(<span class="st">"Quel temps fait-il à Paris ? Et combien font 42 × 7 ?"</span>)
+<span class="cm"># 🔧 Outil appelé : get_weather({'ville': 'Paris'})
+#    → Résultat : 22°C, ensoleillé
+# 🔧 Outil appelé : calculer({'expression': '42 * 7'})
+#    → Résultat : 294
+# ✅ Réponse finale : À Paris il fait 22°C et ensoleillé.
+#    Et 42 × 7 = 294 !</span></pre>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-body">
+      <div class="callout-title">C'est le code le plus important du cours</div>
+      <p>Lis-le 3 fois. Comprends chaque étape. Toute l'IA agentique — LangChain, LangGraph, CrewAI — c'est cette même boucle avec plus d'abstraction par-dessus. Si tu maîtrises ça, tu comprends tout.</p>
+    </div>
+  </div>
+
+  <div class="qcm" id="q6">
+    <div class="qcm-label">QCM · Chapitre 6</div>
+    <div class="qcm-q">Le LLM retourne <code>stop_reason = "tool_use"</code>. Que fait ton code ENSUITE ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q6','Non, stop_reason=tool_use signifie que le LLM veut agir, pas qu\'il a fini.')"><span class="opt-l">A</span>Retourner la réponse finale à l'utilisateur</button>
+      <button class="qcm-opt" onclick="check(this,true,'q6','✅ Exact ! L\'ordre est crucial : 1) sauvegarder la décision du LLM dans l\'historique, 2) exécuter la vraie fonction Python, 3) renvoyer le résultat au LLM pour qu\'il continue.')"><span class="opt-l">B</span>Ajouter la réponse LLM à l'historique → exécuter l'outil → renvoyer le résultat au LLM</button>
+      <button class="qcm-opt" onclick="check(this,false,'q6','Non, l\'outil n\'est pas exécuté par le LLM lui-même — c\'est ton code Python qui le fait.')"><span class="opt-l">C</span>Attendre que le LLM exécute l'outil lui-même</button>
+      <button class="qcm-opt" onclick="check(this,false,'q6','Non, stop_reason=tool_use est un comportement normal attendu, pas une erreur.')"><span class="opt-l">D</span>Lever une exception car le LLM n'a pas fini sa réponse</button>
+    </div>
+    <div class="qcm-fb" id="fb-q6"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(4)">← C'est quoi un LLM ?</button>
+    <button class="nav-btn primary" onclick="go(6)">RAG — Mémoire →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 7 — RAG
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch6">
+  <div class="ch-num">CHAPITRE 07</div>
+  <h1 class="ch-title">RAG — La mémoire de l'IA</h1>
+  <p class="ch-subtitle">Le LLM ne connaît pas tes documents d'entreprise. Le RAG (Retrieval-Augmented Generation) lui permet de chercher dans tes données avant de répondre — sans le ré-entraîner.</p>
+  <div class="ch-tags"><span class="ctag">RAG</span><span class="ctag">embeddings</span><span class="ctag">vector database</span><span class="ctag">ChromaDB</span></div>
+
+  <h2>Le problème que le RAG résout</h2>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🚫</div>
+      <h4>Sans RAG</h4>
+      <p>"Résume notre rapport Q3 2024" → le LLM ne connaît pas ce document → il invente ou dit qu'il ne sait pas.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">✅</div>
+      <h4>Avec RAG</h4>
+      <p>"Résume notre rapport Q3 2024" → le système cherche les passages pertinents dans la base de docs → le LLM résume avec les vraies données.</p>
+    </div>
+  </div>
+
+  <h2>Comment ça marche — les 4 étapes</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-l"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Découper les documents en morceaux (chunks)</div>
+        <div class="step-desc">Tes PDFs, Word, emails sont découpés en petits morceaux de ~500 mots avec un chevauchement. Pourquoi ? Parce qu'on ne peut pas mettre 500 pages dans un seul prompt.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Transformer chaque morceau en vecteur (embedding)</div>
+        <div class="step-desc">Un modèle d'embedding transforme chaque morceau de texte en un tableau de nombres (ex: [0.2, -0.5, 0.8, ...]). Des textes similaires donnent des vecteurs proches mathématiquement.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Stocker les vecteurs dans une base vectorielle</div>
+        <div class="step-desc">Ces vecteurs sont stockés dans une base de données spécialisée (ChromaDB, FAISS, Pinecone) qui permet de faire des recherches par similarité très rapidement.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">4</div></div>
+      <div class="step-body">
+        <div class="step-title">À chaque question, chercher les morceaux pertinents</div>
+        <div class="step-desc">La question de l'utilisateur est convertie en vecteur. On cherche les 3-5 morceaux les plus proches (= les plus pertinents). On les injecte dans le prompt du LLM qui répond avec ces informations.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-title">📡 Analogie réseau — DNS + cache</div>
+    <p>Le RAG c'est un peu comme le DNS avec cache. Tu ne mémorises pas toutes les adresses IP du monde — tu sais où chercher (le serveur DNS) et tu mets en cache ce dont tu as besoin. Le LLM ne connaît pas tous tes documents — il sait où chercher (la vector DB) et injecte ce qui est pertinent.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — rag_simple.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="cm"># pip install langchain langchain-anthropic chromadb sentence-transformers</span>
+<span class="kw">from</span> <span class="dc">langchain.text_splitter</span> <span class="kw">import</span> RecursiveCharacterTextSplitter
+<span class="kw">from</span> <span class="dc">langchain_community.vectorstores</span> <span class="kw">import</span> Chroma
+<span class="kw">from</span> <span class="dc">langchain_community.embeddings</span> <span class="kw">import</span> HuggingFaceEmbeddings
+<span class="kw">from</span> <span class="dc">langchain_anthropic</span> <span class="kw">import</span> ChatAnthropic
+
+<span class="cm"># ── PHASE 1 : Indexation (à faire une seule fois) ──</span>
+
+<span class="cm"># Tes documents (en vrai, tu lirais des fichiers)</span>
+documents = [
+    <span class="st">"""Notre rapport Q3 2024 montre un chiffre d'affaires
+    de 2,5 millions d'euros, en hausse de 15% par rapport à Q2.
+    Les produits SaaS représentent 70% des revenus."""</span>,
+    <span class="st">"""L'équipe IT a déployé une nouvelle infrastructure réseau
+    en septembre 2024. Le temps de latence moyen est passé de
+    45ms à 12ms grâce au nouveau SDN."""</span>,
+    <span class="st">"""Les objectifs Q4 2024 sont : augmenter les ventes de 20%,
+    lancer 2 nouveaux produits, et réduire les coûts de 10%."""</span>
+]
+
+<span class="cm"># Découper en petits morceaux</span>
+splitter = <span class="fn">RecursiveCharacterTextSplitter</span>(
+    chunk_size=<span class="nm">300</span>,    <span class="cm"># taille d'un morceau en caractères</span>
+    chunk_overlap=<span class="nm">50</span>   <span class="cm"># chevauchement pour ne pas couper les idées</span>
+)
+morceaux = splitter.<span class="fn">create_documents</span>(documents)
+<span class="bi">print</span>(<span class="st">f"{len(morceaux)} morceaux créés"</span>)
+
+<span class="cm"># Créer les embeddings et stocker dans ChromaDB</span>
+embeddings = <span class="fn">HuggingFaceEmbeddings</span>(model_name=<span class="st">"all-MiniLM-L6-v2"</span>)
+base_vectorielle = Chroma.<span class="fn">from_documents</span>(
+    documents=morceaux,
+    embedding=embeddings,
+    persist_directory=<span class="st">"./ma_base"</span>  <span class="cm"># sauvegardé sur disque</span>
+)
+<span class="bi">print</span>(<span class="st">"✅ Base vectorielle créée !"</span>)
+
+<span class="cm"># ── PHASE 2 : Répondre aux questions ──</span>
+llm = <span class="fn">ChatAnthropic</span>(model=<span class="st">"claude-3-5-haiku-20241022"</span>)
+
+<span class="kw">def</span> <span class="fn">poser_question_sur_docs</span>(question: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="st">"""Cherche dans les documents et répond avec les vraies données."""</span>
+
+    <span class="cm"># Trouver les 2 morceaux les plus pertinents</span>
+    morceaux_pertinents = base_vectorielle.<span class="fn">similarity_search</span>(question, k=<span class="nm">2</span>)
+    contexte = <span class="st">"\n\n"</span>.<span class="fn">join</span>([m.page_content <span class="kw">for</span> m <span class="kw">in</span> morceaux_pertinents])
+
+    <span class="cm"># Construire le prompt avec le contexte injecté</span>
+    prompt = <span class="st">f"""Réponds à la question en utilisant UNIQUEMENT
+le contexte fourni. Si la réponse n'est pas dans le contexte,
+dis-le clairement.
+
+Contexte :
+{contexte}
+
+Question : {question}"""</span>
+
+    reponse = llm.<span class="fn">invoke</span>(prompt)
+    <span class="kw">return</span> reponse.content
+
+<span class="cm"># Test</span>
+<span class="bi">print</span>(<span class="fn">poser_question_sur_docs</span>(<span class="st">"Quel est le chiffre d'affaires du Q3 ?"</span>))
+<span class="cm"># → "Le chiffre d'affaires Q3 2024 est de 2,5 millions d'euros..."</span></pre>
+  </div>
+
+  <div class="qcm" id="q7">
+    <div class="qcm-label">QCM · Chapitre 7</div>
+    <div class="qcm-q">Pourquoi le RAG est-il nécessaire pour utiliser tes documents d'entreprise avec un LLM ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q7','Les LLMs n\'ont pas de problème de taille mais de connaissance — ils ne connaissent pas tes documents privés.')"><span class="opt-l">A</span>Parce que les LLMs ne peuvent pas traiter plus de 100 mots</button>
+      <button class="qcm-opt" onclick="check(this,true,'q7','✅ Exact ! Le LLM n\'a été entraîné que sur des données publiques jusqu\'à une certaine date. Il ne connaît pas tes documents internes. Le RAG lui permet d\'y accéder en temps réel.')"><span class="opt-l">B</span>Parce que le LLM n'a pas été entraîné sur tes documents privés et ne les connaît pas</button>
+      <button class="qcm-opt" onclick="check(this,false,'q7','Le RAG ne concerne pas le coût mais l\'accès à des données privées.')"><span class="opt-l">C</span>Parce que le RAG rend les appels LLM moins chers</button>
+      <button class="qcm-opt" onclick="check(this,false,'q7','La vitesse n\'est pas la raison principale du RAG.')"><span class="opt-l">D</span>Parce que le LLM répond plus vite avec le RAG</button>
+    </div>
+    <div class="qcm-fb" id="fb-q7"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(5)">← IA Agentique</button>
+    <button class="nav-btn primary" onclick="go(7)">LangChain →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 8 — LANGCHAIN
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch7">
+  <div class="ch-num">CHAPITRE 08</div>
+  <h1 class="ch-title">LangChain — le framework IA</h1>
+  <p class="ch-subtitle">LangChain est la boîte à outils standard pour les projets IA en Python. Au lieu de tout coder à la main, il te fournit des briques prêtes à l'emploi.</p>
+  <div class="ch-tags"><span class="ctag">LangChain</span><span class="ctag">LCEL</span><span class="ctag">chain</span><span class="ctag">prompt template</span></div>
+
+  <h2>Pourquoi LangChain ?</h2>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🔩</div>
+      <h4>Sans LangChain</h4>
+      <p>Tu codes toi-même la gestion de l'historique, les retries, le parsing JSON, la construction des prompts, l'intégration avec différents LLMs…</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚀</div>
+      <h4>Avec LangChain</h4>
+      <p>Tout ça est déjà fait. Tu assembles des "chains" comme des Legos. Tu te concentres sur la logique métier, pas sur la plomberie.</p>
+    </div>
+  </div>
+
+  <h2>Le concept de "chain" — les pipes Python</h2>
+  <p>LangChain utilise l'opérateur <code>|</code> (comme les pipes Unix !) pour connecter des étapes. La sortie d'une étape devient l'entrée de la suivante.</p>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — langchain_bases.py</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">from</span> <span class="dc">langchain_anthropic</span> <span class="kw">import</span> ChatAnthropic
+<span class="kw">from</span> <span class="dc">langchain_core.prompts</span> <span class="kw">import</span> ChatPromptTemplate
+<span class="kw">from</span> <span class="dc">langchain_core.output_parsers</span> <span class="kw">import</span> StrOutputParser
+
+<span class="cm"># Initialiser le modèle</span>
+llm = <span class="fn">ChatAnthropic</span>(model=<span class="st">"claude-3-5-haiku-20241022"</span>)
+
+<span class="cm"># ── Exemple 1 : Chain simple de résumé ──</span>
+
+<span class="cm"># Template de prompt avec une variable {texte}</span>
+prompt_resume = <span class="fn">ChatPromptTemplate</span>.<span class="fn">from_messages</span>([
+    (<span class="st">"system"</span>, <span class="st">"Tu es un expert en résumé de texte. Sois concis et clair."</span>),
+    (<span class="st">"human"</span>, <span class="st">"Résume ce texte en 3 points clés :\n\n{texte}"</span>)
+])
+
+<span class="cm"># La chain : prompt → LLM → parser de texte</span>
+<span class="cm"># C'est comme : cat fichier.txt | grep "..." | sort</span>
+chain_resume = prompt_resume | llm | <span class="fn">StrOutputParser</span>()
+
+<span class="cm"># Utilisation</span>
+resultat = chain_resume.<span class="fn">invoke</span>({
+    <span class="st">"texte"</span>: <span class="st">"Le BUT RT forme des techniciens en réseaux et télécommunications..."</span>
+})
+<span class="bi">print</span>(resultat)  <span class="cm"># → "1. Formation technique... 2. ..."</span>
+
+
+<span class="cm"># ── Exemple 2 : Sortie JSON structurée ──</span>
+<span class="kw">from</span> <span class="dc">pydantic</span> <span class="kw">import</span> BaseModel
+
+<span class="kw">class</span> <span class="fn">Classification</span>(<span class="fn">BaseModel</span>):
+    categorie: <span class="bi">str</span>        <span class="cm"># "bug", "question", "feature"</span>
+    priorite: <span class="bi">str</span>         <span class="cm"># "haute", "moyenne", "basse"</span>
+    resume: <span class="bi">str</span>           <span class="cm"># résumé du problème</span>
+
+<span class="cm"># with_structured_output force le LLM à respecter le schéma</span>
+llm_structure = llm.<span class="fn">with_structured_output</span>(<span class="fn">Classification</span>)
+
+prompt_classif = <span class="fn">ChatPromptTemplate</span>.<span class="fn">from_messages</span>([
+    (<span class="st">"system"</span>, <span class="st">"Tu es un assistant de support technique."</span>),
+    (<span class="st">"human"</span>, <span class="st">"Classe ce ticket : {ticket}"</span>)
+])
+
+chain_classif = prompt_classif | llm_structure  <span class="cm"># pas de parser ici</span>
+
+ticket = <span class="fn">chain_classif</span>.<span class="fn">invoke</span>({
+    <span class="st">"ticket"</span>: <span class="st">"L'application crash au démarrage depuis la mise à jour"</span>
+})
+<span class="bi">print</span>(ticket.categorie)  <span class="cm"># "bug"</span>
+<span class="bi">print</span>(ticket.priorite)   <span class="cm"># "haute"</span>
+<span class="bi">print</span>(ticket.resume)     <span class="cm"># "L'application ne démarre plus..."</span>
+
+
+<span class="cm"># ── Exemple 3 : Traiter plusieurs items en parallèle ──</span>
+tickets = [
+    <span class="st">"Mon app crash"</span>,
+    <span class="st">"Comment changer mon mot de passe ?"</span>,
+    <span class="st">"Il manque un bouton d'export"</span>
+]
+
+<span class="cm"># batch() traite tout en parallèle automatiquement</span>
+resultats = chain_classif.<span class="fn">batch</span>(
+    [{<span class="st">"ticket"</span>: t} <span class="kw">for</span> t <span class="kw">in</span> tickets],
+    config={<span class="st">"max_concurrency"</span>: <span class="nm">3</span>}
+)
+<span class="bi">print</span>([r.categorie <span class="kw">for</span> r <span class="kw">in</span> resultats])
+<span class="cm"># ["bug", "question", "feature"]</span></pre>
+  </div>
+
+  <h2>Les principaux outils LangChain à connaître</h2>
+
+  <table>
+    <tr><th>Composant</th><th>Rôle</th><th>Quand l'utiliser</th></tr>
+    <tr><td><code>ChatPromptTemplate</code></td><td>Template de prompt avec variables</td><td>Toujours — dès qu'il y a des variables dans ton prompt</td></tr>
+    <tr><td><code>StrOutputParser</code></td><td>Extrait le texte de la réponse LLM</td><td>Quand tu veux juste le texte brut</td></tr>
+    <tr><td><code>with_structured_output</code></td><td>Force le LLM à répondre en JSON (Pydantic)</td><td>Pour l'extraction de données structurées</td></tr>
+    <tr><td><code>RunnablePassthrough</code></td><td>Passe les données sans les modifier</td><td>Pour combiner plusieurs branches</td></tr>
+    <tr><td><code>.batch()</code></td><td>Traite une liste en parallèle</td><td>Pour traiter plusieurs items d'un coup</td></tr>
+    <tr><td><code>.stream()</code></td><td>Stream la réponse token par token</td><td>Pour afficher en temps réel</td></tr>
+  </table>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(6)">← RAG</button>
+    <button class="nav-btn primary" onclick="go(8)">Écrire de bons prompts →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 9 — PROMPT ENGINEERING
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch8">
+  <div class="ch-num">CHAPITRE 09</div>
+  <h1 class="ch-title">Écrire de bons prompts</h1>
+  <p class="ch-subtitle">La qualité de la réponse d'un LLM dépend directement de la qualité du prompt. Voici les techniques qui font vraiment la différence, illustrées avec des exemples concrets.</p>
+  <div class="ch-tags"><span class="ctag">system prompt</span><span class="ctag">few-shot</span><span class="ctag">chain-of-thought</span><span class="ctag">format</span></div>
+
+  <h2>Les 5 règles d'or</h2>
+
+  <div class="accordion">
+    <div class="acc-item open">
+      <div class="acc-head" onclick="acc(this)">1. Être précis et explicite <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Le LLM ne lit pas dans tes pensées. Si tu veux 3 points, dis "3 points". Si tu veux du JSON, dis "JSON". Si tu veux du français, dis "en français".</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-hd"><span class="code-lang">❌ prompt vague</span></div>
+          <pre><span class="st">"Résume ce texte."</span></pre>
+        </div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">✅ prompt précis</span></div>
+          <pre><span class="st">"Résume ce texte en EXACTEMENT 3 points sous forme de liste.
+Chaque point doit faire 1 phrase maximum. Réponds en français."</span></pre>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">2. Donner un rôle dans le system prompt <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Le system prompt, c'est l'instruction permanente que reçoit le modèle avant tout. C'est là que tu lui donnes son rôle, ses règles et le format de sortie attendu.</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-hd"><span class="code-lang">exemple de system prompt efficace</span></div>
+          <pre>system = <span class="st">"""Tu es un assistant expert en infrastructure réseau
+pour une équipe de techniciens BUT RT.
+
+TES RÈGLES :
+- Réponds TOUJOURS en français
+- Utilise des termes techniques précis
+- Si tu ne sais pas, dis "Je ne suis pas certain de..."
+- Ne dépasse jamais 200 mots par réponse
+- Si on te demande du code, utilise des blocs ```bash```"""</span></pre>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">3. Montrer des exemples (few-shot) <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Montrer 2-3 exemples entrée/sortie améliore <strong>drastiquement</strong> la précision, surtout pour des formats custom. Le LLM comprend mieux "ce genre de chose" que "fais X".</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-hd"><span class="code-lang">exemple few-shot</span></div>
+          <pre>prompt = <span class="st">"""Classe l'anomalie réseau en : CRITIQUE, MAJEURE, MINEURE.
+
+Exemple 1 :
+Anomalie : "Coupure du lien WAN principal depuis 5 minutes"
+Classification : CRITIQUE
+
+Exemple 2 :
+Anomalie : "Latence élevée sur un switch secondaire"
+Classification : MAJEURE
+
+Exemple 3 :
+Anomalie : "Un port inutilisé en état 'err-disabled'"
+Classification : MINEURE
+
+Maintenant classe celle-ci :
+Anomalie : "{anomalie}"
+Classification :"""</span></pre>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">4. Demander de réfléchir étape par étape <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Pour des tâches complexes, "réfléchis étape par étape" améliore vraiment la qualité. Le LLM vérifie son propre raisonnement avant de répondre.</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-hd"><span class="code-lang">chain-of-thought</span></div>
+          <pre>prompt = <span class="st">"""Analyse cette panne réseau.
+
+Symptômes : Les utilisateurs du bâtiment B n'ont plus accès
+au réseau depuis 10 minutes.
+
+Raisonne étape par étape :
+1. Quelles sont les causes probables ?
+2. Quel équipement vérifier en premier ?
+3. Comment diagnostiquer rapidement ?
+
+Donne ensuite un plan d'action concis."""</span></pre>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">5. Forcer le format de sortie <span class="acc-arrow">▼</span></div>
+      <div class="acc-body">
+        <p>Si tu dois parser la réponse dans ton code, force le LLM à utiliser un format exact. Sinon il peut varier entre les appels et ton parser plante.</p>
+        <div class="code-block" style="margin-top:10px;">
+          <div class="code-hd"><span class="code-lang">forcer JSON</span></div>
+          <pre>prompt = <span class="st">"""Extrais les informations suivantes du ticket.
+Réponds UNIQUEMENT en JSON valide, sans aucun texte autour,
+sans backticks markdown.
+
+Format attendu :
+{"equipement": "...", "symptome": "...", "urgence": "haute|moyenne|basse"}
+
+Ticket : {ticket}"""</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qcm" id="q8">
+    <div class="qcm-label">QCM · Chapitre 9</div>
+    <div class="qcm-q">Tu veux que le LLM classe des alertes réseau dans un format JSON précis. Quelle combinaison donne les meilleurs résultats ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q8','Sans instructions précises, le LLM choisira le format qui lui convient — pas nécessairement JSON.')"><span class="opt-l">A</span>Juste demander "classe cette alerte" et parser la réponse avec regex</button>
+      <button class="qcm-opt" onclick="check(this,false,'q8','Augmenter la température rend la réponse MOINS prévisible, c\'est l\'inverse de ce qu\'on veut.')"><span class="opt-l">B</span>Augmenter la température à 1.5 pour plus de précision</button>
+      <button class="qcm-opt" onclick="check(this,true,'q8','✅ Parfait ! System prompt clair + 2-3 exemples + format JSON défini + temperature=0 = combo gagnant pour une classification fiable et reproductible.')"><span class="opt-l">C</span>System prompt précis + exemples few-shot + format JSON explicite + temperature=0</button>
+      <button class="qcm-opt" onclick="check(this,false,'q8','Répéter la même question ne fait pas varier la qualité de façon utile.')"><span class="opt-l">D</span>Appeler le LLM 5 fois et prendre la réponse la plus fréquente</button>
+    </div>
+    <div class="qcm-fb" id="fb-q8"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(7)">← LangChain</button>
+    <button class="nav-btn primary" onclick="go(9)">Git & Bonnes pratiques →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 10 — GIT
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch9">
+  <div class="ch-num">CHAPITRE 10</div>
+  <h1 class="ch-title">Git & Bonnes pratiques</h1>
+  <p class="ch-subtitle">En stage, tu vas travailler en équipe. Git est non-négociable. Les seniors regardent tes commits pour évaluer ton sérieux. Voici l'essentiel.</p>
+  <div class="ch-tags"><span class="ctag">git</span><span class="ctag">commits</span><span class="ctag">branches</span><span class="ctag">PR</span><span class="ctag">.gitignore</span></div>
+
+  <h2>Les commandes du quotidien</h2>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">terminal — workflow quotidien</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="cm"># ── Setup ──</span>
+git config --global user.name <span class="st">"Ton Prénom Nom"</span>
+git config --global user.email <span class="st">"ton@email.com"</span>
+
+<span class="cm"># ── Commencer une nouvelle feature ──</span>
+git pull origin main                  <span class="cm"># récupérer les derniers changements</span>
+git checkout -b feat/mon-outil-ia     <span class="cm"># créer une branche</span>
+<span class="cm"># (Convention : feat/, fix/, docs/, refactor/ + nom descriptif)</span>
+
+<span class="cm"># ── Pendant le développement ──</span>
+git status                            <span class="cm"># voir ce qui a changé</span>
+git add agent.py tools/calculator.py  <span class="cm"># ajouter des fichiers précis</span>
+git add -p                            <span class="cm"># ajouter morceau par morceau (pro !)</span>
+
+git commit -m <span class="st">"feat: add calculator tool for agent
+
+Implements CalculatorTool class with safe eval()
+Adds unit tests in tests/test_calculator.py"</span>
+
+<span class="cm"># ── Envoyer son travail ──</span>
+git push origin feat/mon-outil-ia     <span class="cm"># push la branche</span>
+<span class="cm"># → ouvrir une Pull Request sur GitHub/GitLab</span>
+
+<span class="cm"># ── Urgences ──</span>
+git stash                             <span class="cm"># "mettre de côté" des modifs non finies</span>
+git stash pop                         <span class="cm"># les récupérer</span>
+git log --oneline -10                 <span class="cm"># voir les 10 derniers commits</span></pre>
+  </div>
+
+  <h2>Écrire de bons messages de commit</h2>
+  <p>Un bon commit message permet de comprendre l'historique sans lire le code. Le standard <em>Conventional Commits</em> est utilisé dans la plupart des projets.</p>
+
+  <table>
+    <tr><th>Préfixe</th><th>Usage</th><th>Exemple</th></tr>
+    <tr><td><code>feat</code></td><td>Nouvelle fonctionnalité</td><td><code>feat: add web search tool</code></td></tr>
+    <tr><td><code>fix</code></td><td>Correction de bug</td><td><code>fix: handle empty LLM response</code></td></tr>
+    <tr><td><code>docs</code></td><td>Documentation</td><td><code>docs: add README with setup guide</code></td></tr>
+    <tr><td><code>test</code></td><td>Tests</td><td><code>test: add unit tests for agent</code></td></tr>
+    <tr><td><code>refactor</code></td><td>Restructuration</td><td><code>refactor: split agent into modules</code></td></tr>
+    <tr><td><code>chore</code></td><td>Maintenance</td><td><code>chore: update dependencies</code></td></tr>
+  </table>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <div class="callout-title">Le .gitignore — OBLIGATOIRE</div>
+      <p>Crée toujours un <code>.gitignore</code> avec au minimum :<br>
+      <code>.env</code> (tes clés API !), <code>__pycache__/</code>, <code>.venv/</code>, <code>*.pyc</code>, <code>.DS_Store</code><br>
+      Va sur <strong>gitignore.io</strong>, tape "Python" et copie le résultat.</p>
+    </div>
+  </div>
+
+  <h2>Écrire de la bonne documentation</h2>
+
+  <div class="code-block">
+    <div class="code-hd"><span class="code-lang">python — bien documenter son code</span><button class="code-copy" onclick="copyCode(this)">Copier</button></div>
+    <pre><span class="kw">def</span> <span class="fn">lancer_agent</span>(
+    question: <span class="bi">str</span>,
+    max_iterations: <span class="bi">int</span> = <span class="nm">10</span>,
+    verbose: <span class="bi">bool</span> = <span class="bi">False</span>
+) -> <span class="bi">str</span>:
+    <span class="st">"""
+    Lance l'agent IA sur une question et retourne la réponse finale.
+
+    L'agent boucle jusqu'à obtenir une réponse finale ou atteindre
+    max_iterations tours. À chaque tour, il peut appeler des outils.
+
+    Args:
+        question: La question ou tâche à traiter
+        max_iterations: Nombre max de tours dans la boucle (défaut: 10)
+        verbose: Si True, affiche les étapes intermédiaires
+
+    Returns:
+        La réponse finale de l'agent sous forme de string
+
+    Raises:
+        TimeoutError: Si max_iterations est atteint sans réponse
+
+    Exemple:
+        >>> resultat = lancer_agent("Quel temps à Paris ?")
+        >>> print(resultat)
+        'Il fait 22°C à Paris, temps ensoleillé.'
+    """</span>
+    <span class="cm"># ... code ici</span></pre>
+  </div>
+
+  <div class="qcm" id="q9">
+    <div class="qcm-label">QCM · Chapitre 10</div>
+    <div class="qcm-q">Tu travailles sur la branche <code>feat/mon-agent</code>. Ton collègue vient de pusher des changements sur <code>main</code>. Comment synchronises-tu ta branche ?</div>
+    <div class="qcm-opts">
+      <button class="qcm-opt" onclick="check(this,false,'q9','Supprimer la branche ferait perdre tout ton travail. Mauvaise idée.')"><span class="opt-l">A</span>Supprimer ta branche et la recréer depuis main</button>
+      <button class="qcm-opt" onclick="check(this,true,'q9','✅ Exact ! git fetch récupère les changements sans modifier ta branche. git rebase origin/main replay tes commits AU-DESSUS des changements de main. L\'historique reste propre et linéaire.')"><span class="opt-l">B</span><code>git fetch origin</code> puis <code>git rebase origin/main</code></button>
+      <button class="qcm-opt" onclick="check(this,false,'q9','git merge main marche mais crée des commits de merge qui polluent l\'historique. Rebase est préféré en pratique.')"><span class="opt-l">C</span><code>git merge main</code> depuis ta branche</button>
+      <button class="qcm-opt" onclick="check(this,false,'q9','Les conflits NE se résolvent pas tout seuls. Si tu ne synchronises pas, ta PR aura des conflits au moment du merge.')"><span class="opt-l">D</span>Ne rien faire, les conflits se règlent automatiquement à la PR</button>
+    </div>
+    <div class="qcm-fb" id="fb-q9"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(8)">← Prompts</button>
+    <button class="nav-btn primary" onclick="go(10)">Réussir son stage →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPITRE 11 — RÉUSSIR SON STAGE
+═══════════════════════════════════════════ -->
+<div class="chapter" id="ch10">
+  <div class="ch-num">CHAPITRE 11</div>
+  <h1 class="ch-title">Réussir son stage</h1>
+  <p class="ch-subtitle">Les compétences techniques ne font pas tout. Voici les conseils pratiques sur le comportement en entreprise, comment être "force de proposition", et les erreurs à éviter absolument.</p>
+  <div class="ch-tags"><span class="ctag">soft skills</span><span class="ctag">communication</span><span class="ctag">initiative</span><span class="ctag">erreurs à éviter</span></div>
+
+  <h2>"Force de proposition" — c'est quoi concrètement ?</h2>
+  <p>C'est dans ta fiche de stage. Ça ne veut pas dire "avoir toujours raison" ou "avoir des idées brillantes". Ça veut dire :</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">💡</div>
+      <h4>Proposer des idées</h4>
+      <p>En réunion ou sur Slack : "J'ai vu qu'on pourrait utiliser X pour ce problème, est-ce que ça serait utile ?" — Même une idée rejetée montre que tu réfléchis.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">❓</div>
+      <h4>Poser de bonnes questions</h4>
+      <p>"J'ai pensé à faire X avec Y — est-ce le bon choix ?" plutôt que "qu'est-ce que je fais ?". Montre que tu as réfléchi avant de demander.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧪</div>
+      <h4>Prototyper vite</h4>
+      <p>Faire un petit proof-of-concept en 2h pour valider une idée, le montrer à l'équipe. Concret > théorique.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📣</div>
+      <h4>Communiquer l'avancement</h4>
+      <p>"J'ai fini X, je commence Y, je bloque sur Z depuis 1h" — sans qu'on te demande. Proactive communication.</p>
+    </div>
+  </div>
+
+  <h2>Les erreurs classiques des stagiaires — à éviter</h2>
+
+  <div class="accordion">
+    <div class="acc-item open">
+      <div class="acc-head" onclick="acc(this)">❌ Rester bloqué en silence trop longtemps <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><p>Règle d'or : <strong>pas plus de 2h bloqué sans demander de l'aide</strong>. Les développeurs seniors préfèrent t'aider 5 minutes maintenant plutôt que de te voir perdre 2 jours. Quand tu demandes, explique ce que tu as déjà essayé et le message d'erreur exact.</p></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">❌ Ne pas lire le message d'erreur jusqu'au bout <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><p>Les tracebacks Python sont longs mais <strong>la vraie erreur est tout en bas</strong>. Lis la dernière ligne. "AttributeError: 'NoneType' object has no attribute 'text'" → tu essaies d'accéder à .text sur None → la réponse LLM était None → il y a eu une erreur d'API. Lis. L'erreur. Jusqu'au. Bout.</p></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">❌ Committer une clé API <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><p>Si tu commit une clé API sur GitHub, même privé : 1) elle est considérée comme compromise, 2) tu dois en générer une nouvelle immédiatement, 3) prévenir ton tuteur. C'est une erreur qui arrive même aux pros — l'important c'est le réflexe de toujours mettre les clés dans <code>.env</code> avec <code>.gitignore</code>.</p></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">❌ Trop grosse PR d'un coup <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><p>Ne code pas 3 jours entiers puis envoie une PR avec 50 fichiers changés. Fais des petites PRs fréquentes avec des changements cohérents. Plus facile à reviewer, plus facile à déboguer si quelque chose casse.</p></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">❌ Attendre la fin du sprint pour dire qu'on est en retard <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><p>Si une tâche prend plus longtemps que prévu, le dire dès que tu le réalises — pas le dernier jour. "J'avais estimé 2 jours, c'est plus complexe que prévu, il me faudra 4 jours" est toujours préférable à un retard surprise.</p></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="acc(this)">❌ Être défensif en code review <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><p>La code review n'est pas une critique personnelle. La bonne réponse c'est "Merci, je vais corriger" ou "Je ne comprends pas encore — peux-tu m'expliquer ?". Pas "mais ça marche quand même !" ou "c'est la façon dont je l'ai toujours fait".</p></div>
+    </div>
+  </div>
+
+  <h2>Ton plan de préparation — les 6 semaines avant le stage</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-l"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Semaines 1-2 : Consolider Python</div>
+        <div class="step-desc">Refaire des exercices sur les fonctions, classes, listes/dicts. Installer Python + VS Code + créer un venv. S'assurer de pouvoir écrire du code sans googler les bases.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Semaine 3 : Premier contact avec les LLMs</div>
+        <div class="step-desc">Créer un compte Anthropic ou OpenAI. Appeler leur API manuellement en Python (comme dans le chapitre 4). Expérimenter avec les paramètres (temperature, max_tokens).</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Semaine 4 : Construire un mini-agent</div>
+        <div class="step-desc">Reprendre le code du chapitre 6, ajouter 2-3 outils (météo, calculatrice, heure). Comprendre vraiment la boucle. Le tester avec des questions variées.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Semaine 5 : Découvrir LangChain</div>
+        <div class="step-desc">Suivre le quickstart officiel de LangChain. Refaire ton mini-agent avec LangChain pour comparer. Faire un exemple simple de RAG avec ChromaDB.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">5</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Semaine 6 : Documenter et tester</div>
+        <div class="step-desc">Reprendre ton mini-projet et ajouter des docstrings, un README, quelques tests pytest. Publier sur GitHub. C'est ce que tu montreras à ton tuteur le jour J.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-l"><div class="step-num">6</div></div>
+      <div class="step-body">
+        <div class="step-title">Avant J-1 : Préparer des idées</div>
+        <div class="step-desc">Réfléchir à 2-3 cas d'usage IA qui pourraient aider l'équipe. Arriver avec des idées concrètes = être force de proposition dès le premier jour.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <h3>🎓 Félicitations — tu as fini le cours !</h3>
+    <p>Tu as maintenant toutes les bases pour réussir ton stage en IA agentique. Python avancé, LLMs, agents, RAG, LangChain, Git, prompts — tu connais le terrain. Le plus important maintenant : <strong>pratiquer</strong>. Code tous les jours, même 30 minutes. Chaque ligne de code écrite te rend plus à l'aise.</p>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="go(9)">← Git & Bonnes pratiques</button>
+    <button class="nav-btn primary" onclick="go(0)" style="background:#1a7a4a;border-color:#1a7a4a;">🔄 Recommencer depuis le début</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+let current = 0;
+const total = 11;
+const seen = new Set([0]);
+
+function go(n) {
+  document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
+  document.getElementById('ch' + n).classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach((el, i) => {
+    el.classList.toggle('active', i === n);
+    if (seen.has(i)) el.classList.add('done');
+  });
+
+  seen.add(n);
+  current = n;
+
+  const pct = Math.round(((n + 1) / total) * 100);
+  document.getElementById('pFill').style.width = pct + '%';
+  document.getElementById('pTxt').textContent = (n + 1) + ' / ' + total + ' chapitres';
+
+  document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function check(btn, correct, qid, msg) {
+  const block = document.getElementById(qid);
+  if (block.dataset.done) return;
+  block.dataset.done = '1';
+
+  block.querySelectorAll('.qcm-opt').forEach(o => {
+    o.style.pointerEvents = 'none';
+    const isCorrect = o.getAttribute('onclick') && o.getAttribute('onclick').includes('true,');
+    if (o === btn) {
+      o.classList.add(correct ? 'correct' : 'wrong');
+    } else if (isCorrect) {
+      o.classList.add('show-correct');
+    }
+  });
+
+  const fb = document.getElementById('fb-' + qid);
+  fb.className = 'qcm-fb show ' + (correct ? 'ok' : 'nok');
+  fb.innerHTML = (correct ? '✅ ' : '❌ ') + msg;
+}
+
+function acc(head) {
+  head.parentElement.classList.toggle('open');
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'Copié !';
+    setTimeout(() => btn.textContent = 'Copier', 2000);
+  });
+}
+</script>
+</body>
+</html>
